@@ -6,79 +6,71 @@ import ComboSection from "../components/ComboSection";
 import CityChecker from "../components/CityChecker";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import main from "../assets/main.png";
 
 const Home = () => {
   return (
     <>
-    <div className="">
-        <Navbar/>
-    </div>
-      {/* HERO SECTION */}
-      <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white overflow-hidden pb-24">
+      <Navbar />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-10 grid lg:grid-cols-2 gap-16 items-center">
+     
+     {/* HERO SECTION */}
+<section className="bg-white text-black py-20 border-b border-borderLight">
+  <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
 
-          {/* LEFT CONTENT */}
-          <div className="space-y-8">
-            <span className="inline-block bg-white/20 px-4 py-1 rounded-full text-sm tracking-wide">
-              Trusted by 10,000+ Customers
-            </span>
+    <div className="space-y-6">
+      <span className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium">
+        Trusted by 10,000+ Customers
+      </span>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Power Your Ride <br />
-              With Confidence
-            </h1>
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+        <span className="text-primary">Find the Right</span> Battery <br />
+        For Your Vehicle
+      </h1>
 
-            <p className="text-blue-100 text-lg md:text-xl max-w-xl">
-              Premium batteries with free installation, doorstep delivery,
-              and hassle-free old battery exchange.
-            </p>
+      <p className="text-gray-600 text-lg max-w-xl">
+        Premium batteries with free installation and hassle-free exchange.
+      </p>
 
-            <div className="flex flex-wrap gap-4 pt-4">
-              <button className="bg-orange-500 hover:bg-orange-600 px-7 py-3 rounded-xl font-semibold shadow-lg transition transform hover:scale-105">
-                Find My Battery
-              </button>
+      <div className="flex gap-4 pt-4">
+        <button className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition">
+          Find Battery
+        </button>
 
-              <button className="bg-white text-blue-700 px-7 py-3 rounded-xl font-semibold hover:bg-gray-100 transition">
-                Explore Products
-              </button>
-            </div>
-          </div>
-
-          {/* RIGHT IMAGE */}
-          <div className="flex justify-center relative">
-            <div className="absolute w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-            <img
-              src="https://i.imgur.com/8Km9tLL.png"
-              alt="Battery"
-              className="relative z-10 w-80 md:w-[420px]"
-            />
-          </div>
-
-        </div>
-      </section>
-
-      {/* FILTER SECTION (Controlled Overlap) */}
-      <div className="-mt-10 relative z-10 ">
-        <QuickBatteryFinder />
+        <button className="border border-blackMain text-blackMain px-6 py-3 rounded-lg font-semibold hover:bg-blackMain hover:text-white transition">
+          Book Service
+        </button>
       </div>
+    </div>
+
+    <div className="flex justify-center">
+      <img
+        src={main}
+        alt="Battery"
+        className="w-80 md:w-[420px]"
+      />
+    </div>
+
+  </div>
+</section>
+
+{/* QUICK BATTERY FINDER (NORMAL FLOW) */}
+<section className="bg-white py-12">
+  <QuickBatteryFinder />
+</section>
 
       {/* MAIN CONTENT FLOW */}
-      <div className="space-y-20 pt-10 ">
+      <div className="bg-softBg">
 
         <ShopByCategory />
-
         <TopBrands />
-
         <FeaturedProducts />
-
         <ComboSection />
-
         <CityChecker />
 
       </div>
 
-      <Footer/>
+      <Footer />
     </>
   );
 };

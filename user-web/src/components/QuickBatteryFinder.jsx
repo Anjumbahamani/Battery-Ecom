@@ -15,7 +15,6 @@ const MODELS = {
   TVS: ["Jupiter", "Apache", "XL100"],
   Bajaj: ["Pulsar", "Discover", "Platina"],
   Yamaha: ["FZ", "R15", "Ray ZR"],
-
   Maruti: ["Swift", "Baleno", "Dzire"],
   Hyundai: ["i10", "i20", "Creta"],
   Tata: ["Nexon", "Punch", "Tiago"],
@@ -33,15 +32,17 @@ const CITIES = ["Bengaluru", "Hubli", "Dharwad", "Mumbai", "Delhi", "Chennai"];
 
 const Select = ({ label, value, onChange, options, disabled }) => (
   <div className="flex flex-col gap-2">
-    <label className="text-xs font-semibold text-gray-600">{label}</label>
+    <label className="text-xs font-semibold text-gray-700">
+      {label}
+    </label>
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
       className={[
-        "h-11 rounded-xl border bg-white px-3 text-sm",
-        "focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300",
-        disabled ? "opacity-60 cursor-not-allowed" : "hover:border-gray-300",
+        "h-11 rounded-lg border border-borderLight bg-white px-3 text-sm",
+        "focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
+        disabled ? "opacity-60 cursor-not-allowed" : "hover:border-gray-400",
       ].join(" ")}
     >
       <option value="">Select</option>
@@ -67,7 +68,6 @@ const QuickBatteryFinder = () => {
   );
 
   const modelOptions = useMemo(() => (brand ? MODELS[brand] || [] : []), [brand]);
-
   const variantOptions = useMemo(
     () => (model ? VARIANTS[model] || [] : []),
     [model]
@@ -88,24 +88,23 @@ const QuickBatteryFinder = () => {
     }
   };
 
-  const canSearch = vehicleType && brand && model && city; // variant optional
+  const canSearch = vehicleType && brand && model && city;
+
   const handleSearch = () => {
-    // UI only: later call API and navigate to /products?...query
-    // For now just demo
     alert(
       `Finding batteries for:\n${vehicleType} / ${brand} / ${model}${variant ? " / " + variant : ""}\nCity: ${city}`
     );
   };
 
   return (
-    <section className="bg-white">
-      {/* Overlap effect on hero */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 -mt-10 md:-mt-14 relative z-20">
-        <div className="rounded-2xl bg-white shadow-xl ring-1 ring-black/5 p-5 md:p-6">
-          {/* Header row */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+    <section className="bg-softBg">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="rounded-2xl bg-white shadow-lg border border-borderLight p-6">
+
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900">
+              <h3 className="text-xl font-bold text-black">
                 Quick Battery Finder
               </h3>
               <p className="text-sm text-gray-500 mt-1">
@@ -113,20 +112,20 @@ const QuickBatteryFinder = () => {
               </p>
             </div>
 
-            <div className="hidden md:flex items-center gap-2 text-xs text-gray-500">
-              <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1">
-                <span className="h-2 w-2 rounded-full bg-blue-600" />
-                Installation available
+            <div className="hidden md:flex items-center gap-2 text-xs">
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-3 py-1">
+                <span className="h-2 w-2 rounded-full bg-primary" />
+                Installation Available
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-orange-50 px-3 py-1">
-                <span className="h-2 w-2 rounded-full bg-orange-500" />
-                Exchange support
+              <span className="inline-flex items-center gap-2 rounded-full bg-black/5 text-blackMain px-3 py-1">
+                <span className="h-2 w-2 rounded-full bg-blackMain" />
+                Exchange Support
               </span>
             </div>
           </div>
 
           {/* Filters */}
-          <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
             <Select
               label="Vehicle Type"
               value={vehicleType}
@@ -176,7 +175,6 @@ const QuickBatteryFinder = () => {
               disabled={false}
             />
 
-            {/* Button column */}
             <div className="flex flex-col gap-2">
               <span className="text-xs font-semibold text-transparent select-none">
                 Action
@@ -185,9 +183,9 @@ const QuickBatteryFinder = () => {
                 onClick={handleSearch}
                 disabled={!canSearch}
                 className={[
-                  "h-11 rounded-xl font-semibold text-white transition",
+                  "h-11 rounded-lg font-semibold text-white transition duration-300",
                   canSearch
-                    ? "bg-blue-600 hover:bg-blue-700 shadow-md"
+                    ? "bg-primary hover:bg-red-700 shadow-md"
                     : "bg-gray-300 cursor-not-allowed",
                 ].join(" ")}
               >
@@ -196,16 +194,20 @@ const QuickBatteryFinder = () => {
             </div>
           </div>
 
-          {/* Mobile helper chips */}
-          <div className="mt-4 flex md:hidden flex-wrap gap-2 text-xs text-gray-600">
-            <span className="rounded-full bg-blue-50 px-3 py-1">Installation available</span>
-            <span className="rounded-full bg-orange-50 px-3 py-1">Exchange support</span>
+          {/* Mobile Chips */}
+          <div className="mt-4 flex md:hidden flex-wrap gap-2 text-xs">
+            <span className="rounded-full bg-primary/10 text-primary px-3 py-1">
+              Installation Available
+            </span>
+            <span className="rounded-full bg-black/5 text-blackMain px-3 py-1">
+              Exchange Support
+            </span>
           </div>
+
         </div>
       </div>
 
-      {/* spacing below card */}
-      <div className="h-10 md:h-12" />
+      <div className="h-12" />
     </section>
   );
 };

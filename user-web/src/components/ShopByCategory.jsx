@@ -38,10 +38,10 @@ const ShopByCategory = () => {
         
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Shop by Category
+          <h2 className="text-3xl md:text-4xl font-bold text-black">
+            Shop by <span className="text-primary">Category</span>
           </h2>
-          <p className="text-gray-500 mt-3">
+          <p className="text-gray-600 mt-3">
             Explore our wide range of battery solutions.
           </p>
         </div>
@@ -51,7 +51,7 @@ const ShopByCategory = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="group bg-gray-50 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:shadow-xl hover:bg-white transition duration-300 cursor-pointer"
+              className="group bg-white border border-borderLight rounded-xl p-6 flex flex-col items-center justify-center text-center hover:shadow-md hover:border-primary transition duration-300 cursor-pointer"
             >
               <div className="w-20 h-20 flex items-center justify-center mb-4">
                 <img
@@ -61,7 +61,7 @@ const ShopByCategory = () => {
                 />
               </div>
 
-              <h3 className="font-semibold text-gray-800 text-sm md:text-base">
+              <h3 className="font-semibold text-black text-sm md:text-base group-hover:text-primary transition">
                 {category.name}
               </h3>
             </div>

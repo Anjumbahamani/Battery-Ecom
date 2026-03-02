@@ -27,14 +27,15 @@ const products = [
 
 const FeaturedProducts = () => {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         
         <div className="flex justify-between items-center mb-8">
-          <h3 className="text-2xl md:text-3xl font-bold">
+          <h3 className="text-2xl md:text-3xl font-bold text-black">
             Featured Products
           </h3>
-          <button className="text-blue-600 font-semibold">
+
+          <button className="text-red-600 font-semibold hover:text-black transition">
             View All →
           </button>
         </div>
@@ -43,7 +44,7 @@ const FeaturedProducts = () => {
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-4"
+              className="bg-white border border-gray-200 rounded-xl hover:shadow-lg transition p-4"
             >
               <img
                 src={product.image}
@@ -51,15 +52,15 @@ const FeaturedProducts = () => {
                 className="h-40 mx-auto object-contain"
               />
 
-              <h4 className="mt-4 font-semibold text-gray-800">
+              <h4 className="mt-4 font-semibold text-black">
                 {product.name}
               </h4>
 
-              <p className="mt-2 text-lg font-bold text-blue-600">
+              <p className="mt-2 text-lg font-bold text-red-600">
                 {product.price}
               </p>
 
-              <button className="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg">
+              <button className="mt-4 w-full bg-red-600 hover:bg-black text-white py-2 rounded-lg transition duration-300">
                 Add to Cart
               </button>
             </div>
@@ -71,3 +72,4 @@ const FeaturedProducts = () => {
 };
 
 export default FeaturedProducts;
+

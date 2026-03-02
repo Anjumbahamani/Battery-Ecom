@@ -9,7 +9,9 @@ function App() {
 
   return (
     <>
+    <div className="bg-dark min-h-screen text-lightText">
       <AppRoutes />
+      </div>
     </>
   )
 }
