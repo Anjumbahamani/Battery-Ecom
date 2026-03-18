@@ -30,8 +30,8 @@ const Navbar = () => {
 
           {/* Icons */}
           <div className="flex items-center gap-6">
-            <User className="cursor-pointer text-black hover:text-primary transition" />
-            <ShoppingCart className="cursor-pointer text-black hover:text-primary transition" />
+            <a href="/profile"><User className="cursor-pointer text-black hover:text-primary transition" /></a>
+            <a href="/cart"><ShoppingCart className="cursor-pointer text-black hover:text-primary transition" /></a>
           </div>
 
         </div>

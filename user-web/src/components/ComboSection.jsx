@@ -1,15 +1,17 @@
+import combo from '../assets/combo.webp'
+
 const combos = [
   {
     id: 1,
     name: "Luminous Inverter + 150Ah Battery",
     price: "₹18,999",
-    image: "https://i.imgur.com/qVq7JzH.png",
+    image: combo,
   },
   {
     id: 2,
     name: "Microtek UPS + Battery Combo",
     price: "₹21,499",
-    image: "https://i.imgur.com/oYiTqum.png",
+    image: combo,
   },
 ];
 

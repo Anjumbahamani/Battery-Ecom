@@ -7,67 +7,86 @@ import CityChecker from "../components/CityChecker";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import main from "../assets/main.png";
+{
+  /* HERO SECTION */
+}
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+
+import hero1 from "../assets/hero1.webp";
+import HeroStats from "../components/HeroStats";
+import StatsSection from "../components/StatsSection";
+import BrandsMarquee from "../components/BrandsMarquee";
 
 const Home = () => {
   return (
     <>
       <Navbar />
 
-     
-     {/* HERO SECTION */}
-<section className="bg-white text-black py-20 border-b border-borderLight">
-  <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
+      <section className="relative h-[90vh] w-full">
+        {/* SLIDER */}
+        <Swiper
+          modules={[Autoplay]}
+          autoplay={{ delay: 3000 }}
+          loop={true}
+          className="h-full"
+        >
+          {[hero1, hero1, hero1].map((img, index) => (
+            <SwiperSlide key={index}>
+              <div
+                className="h-[90vh] bg-cover bg-center relative"
+                style={{ backgroundImage: `url(${img})` }}
+              >
+                {/* DARK OVERLAY */}
+               <div className="absolute inset-0 bg-black/70 z-0" />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-    <div className="space-y-6">
-      <span className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium">
-        Trusted by 10,000+ Customers
-      </span>
+        {/* CONTENT OVER SLIDER */}
+        <div className="absolute inset-0 flex items-center z-10">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-10 items-center">
+            {/* LEFT TEXT */}
+            <div className="text-white space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white [text-shadow:0_4px_20px_rgba(0,0,0,0.8)]">
+                Book a Car Battery & get Free Installation
+              </h1>
 
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-        <span className="text-primary">Find the Right</span> Battery <br />
-        For Your Vehicle
-      </h1>
+              <p className="text-lg text-gray-200 max-w-lg">
+                Choose from a wide range of batteries with best prices.
+              </p>
 
-      <p className="text-gray-600 text-lg max-w-xl">
-        Premium batteries with free installation and hassle-free exchange.
-      </p>
+              <button className="bg-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition">
+                Find Battery
+              </button>
+            </div>
 
-      <div className="flex gap-4 pt-4">
-        <button className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition">
-          Find Battery
-        </button>
+            {/* RIGHT FINDER */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="w-full max-w-md">
+                {/* <QuickBatteryFinder /> */}
+                <HeroStats/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <button className="border border-blackMain text-blackMain px-6 py-3 rounded-lg font-semibold hover:bg-blackMain hover:text-white transition">
-          Book Service
-        </button>
-      </div>
-    </div>
-
-    <div className="flex justify-center">
-      <img
-        src={main}
-        alt="Battery"
-        className="w-80 md:w-[420px]"
-      />
-    </div>
-
-  </div>
-</section>
-
-{/* QUICK BATTERY FINDER (NORMAL FLOW) */}
-<section className="bg-white py-12">
-  <QuickBatteryFinder />
-</section>
+      {/* QUICK BATTERY FINDER (NORMAL FLOW) */}
+      <section className="bg-white">
+        <QuickBatteryFinder />
+      </section>
 
       {/* MAIN CONTENT FLOW */}
       <div className="bg-softBg">
-
         <ShopByCategory />
         <TopBrands />
+        <StatsSection />
         <FeaturedProducts />
+        {/* <BrandsMarquee /> */}
         <ComboSection />
         <CityChecker />
-
       </div>
 
       <Footer />

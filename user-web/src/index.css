@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -14,6 +19,22 @@
 ::-webkit-scrollbar-thumb {
   background: #E10600;
   border-radius: 10px;
+}
+
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
 }
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

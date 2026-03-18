@@ -43,7 +43,7 @@ const Footer = () => {
       </div>
 
       <div className="text-center text-gray-500 mt-8 border-t border-gray-700 pt-6">
-        © 2026 BatteryHub. All rights reserved.
+        © 2026 Batterybazzar. All rights reserved.
       </div>
     </footer>
   );
