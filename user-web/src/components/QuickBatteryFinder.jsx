@@ -98,116 +98,130 @@ const QuickBatteryFinder = () => {
   };
 
   return (
-    <section className="bg-gradient-to-r from-red-600 to-red-700 py-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* White Card */}
-        <div className="rounded-2xl bg-white shadow-2xl p-8 lg:p-10">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-black">
-                Quick Battery Finder
-              </h3>
-              <p className="text-gray-500 mt-2">
-                Select your vehicle details to find compatible batteries.
-              </p>
-            </div>
+    <section className="bg-white py-10">
+ <div className="w-full px-6">
 
-            <div className="hidden md:flex items-center gap-3 text-sm">
-              <span className="inline-flex items-center gap-2 rounded-full bg-red-100 text-red-600 px-4 py-1.5 font-medium">
-                <span className="h-2 w-2 rounded-full bg-red-600" />
-                Installation Available
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-gray-100 text-black px-4 py-1.5 font-medium">
-                <span className="h-2 w-2 rounded-full bg-black" />
-                Exchange Support
-              </span>
-            </div>
-          </div>
+    {/* Title */}
+    <h2 className="text-2xl font-semibold text-gray-800 mb-4 border-b-2 border-red-500 pb-2">
+      QUICK BATTERY FINDER
+    </h2>
 
-          {/* Filters */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5">
-            <Select
-              label="Vehicle Type"
-              value={vehicleType}
-              onChange={(v) => {
-                setVehicleType(v);
-                resetDownstream("vehicle");
-              }}
-              options={VEHICLE_TYPES}
-              disabled={false}
-            />
+    <div className="w-full bg-red-600 py-6 px-6">
 
-            <Select
-              label="Brand"
-              value={brand}
-              onChange={(v) => {
-                setBrand(v);
-                resetDownstream("brand");
-              }}
-              options={brandOptions}
-              disabled={!vehicleType}
-            />
+    <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
 
-            <Select
-              label="Model"
-              value={model}
-              onChange={(v) => {
-                setModel(v);
-                resetDownstream("model");
-              }}
-              options={modelOptions}
-              disabled={!brand}
-            />
-
-            <Select
-              label="Variant (Optional)"
-              value={variant}
-              onChange={(v) => setVariant(v)}
-              options={variantOptions}
-              disabled={!model}
-            />
-
-            <Select
-              label="City"
-              value={city}
-              onChange={(v) => setCity(v)}
-              options={CITIES}
-              disabled={false}
-            />
-
-            {/* Button */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs font-semibold text-transparent select-none">
-                Action
-              </span>
-              <button
-                onClick={handleSearch}
-                disabled={!canSearch}
-                className={[
-                  "h-12 rounded-lg font-semibold text-white transition duration-300",
-                  canSearch
-                    ? "bg-black hover:bg-gray-900 shadow-lg"
-                    : "bg-gray-300 ",
-                ].join(" ")}
-              >
-                Find Batteries
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Chips */}
-          <div className="mt-6 flex md:hidden flex-wrap gap-2 text-xs">
-            <span className="rounded-full bg-red-100 text-red-600 px-3 py-1">
-              Installation Available
-            </span>
-            <span className="rounded-full bg-gray-100 text-black px-3 py-1">
-              Exchange Support
-            </span>
-          </div>
+        {/* Product Type */}
+        <div>
+          <label className="text-white text-sm font-semibold">
+            Product Type*
+          </label>
+          <select
+            className="w-full h-10 mt-1 px-2 bg-white border border-gray-300 text-sm"
+            value={vehicleType}
+            onChange={(e) => {
+              setVehicleType(e.target.value);
+              resetDownstream("vehicle");
+            }}
+          >
+            <option>Select Product Type</option>
+            {VEHICLE_TYPES.map((v) => (
+              <option key={v}>{v}</option>
+            ))}
+          </select>
         </div>
+
+        {/* Make */}
+        <div>
+          <label className="text-white text-sm font-semibold">
+            Make*
+          </label>
+          <select
+            className="w-full h-10 mt-1 px-2 bg-white border border-gray-300 text-sm"
+            value={brand}
+            onChange={(e) => {
+              setBrand(e.target.value);
+              resetDownstream("brand");
+            }}
+          >
+            <option>Select Manufacturer</option>
+            {brandOptions.map((b) => (
+              <option key={b}>{b}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Model */}
+        <div>
+          <label className="text-white text-sm font-semibold">
+            Model*
+          </label>
+          <select
+            className="w-full h-10 mt-1 px-2 bg-white border border-gray-300 text-sm"
+            value={model}
+            onChange={(e) => {
+              setModel(e.target.value);
+              resetDownstream("model");
+            }}
+          >
+            <option>Select Model</option>
+            {modelOptions.map((m) => (
+              <option key={m}>{m}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Brand */}
+        <div>
+          <label className="text-white text-sm font-semibold">
+            Brand
+          </label>
+          <select className="w-full h-10 mt-1 px-2 bg-white border border-gray-300 text-sm">
+            <option>All Brand</option>
+          </select>
+        </div>
+
+        {/* State */}
+        <div>
+          <label className="text-white text-sm font-semibold">
+            State*
+          </label>
+          <select className="w-full h-10 mt-1 px-2 bg-white border border-gray-300 text-sm">
+            <option>Select State</option>
+          </select>
+        </div>
+
+        {/* City */}
+        <div>
+          <label className="text-white text-sm font-semibold">
+            City*
+          </label>
+          <select
+            className="w-full h-10 mt-1 px-2 bg-white border border-gray-300 text-sm"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          >
+            <option>Select City</option>
+            {CITIES.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+
       </div>
-    </section>
+
+      {/* Button */}
+      <div className="mt-4">
+        <button
+          onClick={handleSearch}
+          className="bg-black text-white px-6 py-2 text-sm font-semibold hover:bg-gray-800"
+        >
+          Find Your Battery
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
   );
 };
 

@@ -17,12 +17,58 @@ import hero1 from "../assets/hero1.webp";
 import HeroStats from "../components/HeroStats";
 import StatsSection from "../components/StatsSection";
 import BrandsMarquee from "../components/BrandsMarquee";
+import TopBar from "../components/TopBar";
+import { Truck, ShieldCheck, Star, BadgeCheck, PackageCheck, Wrench } from "lucide-react";
+import CarBatteryByMake from "../components/CarBatteryByMake";
+import AboutUs from "./About";
+
 
 const Home = () => {
   return (
     <>
+    <TopBar/>
       <Navbar />
+   <div className="border-t border-borderLight bg-red-600">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3">
+          <div className="flex flex-wrap justify-between gap-3">
+            {/* Box 1 */}
+            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm text-sm">
+              <Wrench size={16} className="text-primary" />
+              <span>Free Professional Installation</span>
+            </div>
 
+            {/* Box 2 */}
+            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm text-sm">
+              <Truck size={16} className="text-primary" />
+              <span>Free Delivery</span>
+            </div>
+
+            {/* Box 3 */}
+            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm text-sm">
+              <ShieldCheck size={16} className="text-primary" />
+              <span>100% Genuine</span>
+            </div>
+
+            {/* Box 4 */}
+            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm text-sm">
+              <Star size={16} className="text-primary" />
+              <span>Best Prices</span>
+            </div>
+
+            {/* Box 5 */}
+            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm text-sm">
+              <BadgeCheck size={16} className="text-primary" />
+              <span>All Leading Brands</span>
+            </div>
+
+            {/* Box 6 */}
+            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md shadow-sm text-sm">
+              <PackageCheck size={16} className="text-primary" />
+              <span>Cash on Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <section className="relative h-[90vh] w-full">
         {/* SLIDER */}
         <Swiper
@@ -38,7 +84,7 @@ const Home = () => {
                 style={{ backgroundImage: `url(${img})` }}
               >
                 {/* DARK OVERLAY */}
-               <div className="absolute inset-0 bg-black/70 z-0" />
+               <div className="absolute inset-0 bg-black/40 z-0" />
               </div>
             </SwiperSlide>
           ))}
@@ -66,7 +112,7 @@ const Home = () => {
             <div className="flex justify-center lg:justify-end">
               <div className="w-full max-w-md">
                 {/* <QuickBatteryFinder /> */}
-                <HeroStats/>
+                {/* <HeroStats/> */}
               </div>
             </div>
           </div>
@@ -81,10 +127,13 @@ const Home = () => {
       {/* MAIN CONTENT FLOW */}
       <div className="bg-softBg">
         <ShopByCategory />
+        <CarBatteryByMake />
         <TopBrands />
         <StatsSection />
         <FeaturedProducts />
         {/* <BrandsMarquee /> */}
+        <AboutUs/>
+        <HeroStats />
         <ComboSection />
         <CityChecker />
       </div>

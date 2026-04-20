@@ -34,7 +34,7 @@ body {
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 20s linear infinite;
+  animation: marquee 50s linear infinite;
 }
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

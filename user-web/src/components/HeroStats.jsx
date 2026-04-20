@@ -32,19 +32,30 @@ const stats = [
 
 const HeroStats = () => {
   return (
-    <div className="flex flex-col gap-6 w-80">
-      {stats.map((item, index) => (
-        <div
-          key={index}
-          className="bg-white backdrop-blur-md rounded-xl p-6 text-center shadow-lg hover:scale-105 transition"
-        >
-          <div className="text-red-600 text-3xl font-bold">
-            <Counter target={item.value} />
-          </div>
-          <p className="text-gray-600 mt-2 text-sm">{item.label}</p>
+    <section className="w-full py-10 bg-gray-50">
+      <div className="w-full px-4 md:px-10">
+        
+        {/* Responsive Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
+          
+          {stats.map((item, index) => (
+            <div
+              key={index}
+              className="w-full bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl hover:scale-105 transition duration-300"
+            >
+              <div className="text-red-600 text-3xl md:text-4xl font-bold">
+                <Counter target={item.value} />
+              </div>
+              <p className="text-gray-600 mt-2 text-sm md:text-base">
+                {item.label}
+              </p>
+            </div>
+          ))}
+
         </div>
-      ))}
-    </div>
+
+      </div>
+    </section>
   );
 };
 
