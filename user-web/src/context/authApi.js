@@ -1,5 +1,5 @@
 // ✅ SINGLE BASE URL FOR ENTIRE PROJECT
-export const BASE_URL = "http://145.223.19.16";
+export const BASE_URL = "https://batteriesbazaar.com";
 
 const getToken = () => localStorage.getItem("accessToken");
 

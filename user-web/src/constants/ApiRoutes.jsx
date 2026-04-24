@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://145.223.19.16',
+  baseURL: 'https://batteriesbazaar.com',
 });
 
 API.interceptors.request.use((config) => {

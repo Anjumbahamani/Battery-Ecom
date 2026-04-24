@@ -161,7 +161,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const BASE_URL = "http://145.223.19.16";
+const BASE_URL = "https://batteriesbazaar.com";
 
 // Use IDs to match API exact-match filter requirements
 const brands = [
