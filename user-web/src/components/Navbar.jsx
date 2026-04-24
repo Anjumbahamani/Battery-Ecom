@@ -80,7 +80,7 @@
 // };
 
 // export default Navbar;
-import { ShoppingCart, User, Wrench, PackageCheck, ShieldCheck } from "lucide-react";
+import { ShoppingCart, User, Wrench, PackageCheck, ShieldCheck, Heart } from "lucide-react";
 import logo_battery from "../assets/logo_battery.jpeg";
 
 const Navbar = () => {
@@ -128,6 +128,9 @@ const Navbar = () => {
 
             <a href="/cart">
               <ShoppingCart className="cursor-pointer text-gray-700 hover:text-red-500 hover:scale-110 transition" />
+            </a>
+             <a href="/wishlist">
+              <Heart className="cursor-pointer text-gray-700 hover:text-red-500 hover:scale-110 transition" />
             </a>
 
             <a
