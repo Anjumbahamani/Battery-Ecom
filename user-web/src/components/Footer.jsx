@@ -1,5 +1,6 @@
 import React from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -51,8 +52,9 @@ const Footer = () => {
             <h5 className="text-white font-semibold mb-4">Support</h5>
             <ul className="space-y-2 text-sm">
               <li>Help Center</li>
-              <li>Warranty Policy</li>
-              <li>Return Policy</li>
+              <Link to="/privacy-policy"><li>Privacy Policy</li></Link>
+<Link to="/terms-conditions"><li>Terms & Conditions</li></Link>
+<Link to="/return-policy"><li>Return Policy</li></Link>
               <li>Shipping Info</li>
               <li>Contact Us</li>
             </ul>

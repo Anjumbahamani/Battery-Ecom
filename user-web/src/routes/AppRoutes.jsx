@@ -10,6 +10,9 @@ import OrderConfirmation from "../pages/OrderConfirmation";
 import PaymentPage from "../pages/Payment";
 import Profile from "../pages/Profile";
 import Wishlist from "../pages/Wishlist";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
+import TermsConditions from "../pages/TermConditions";
+import ReturnPolicy from "../pages/ReturnPolicy";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -25,7 +28,6 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* PUBLIC ROUTES - No login needed */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -34,26 +36,58 @@ const AppRoutes = () => {
         <Route path="/productdetail/:id" element={<ProductDetail />} />
 
         {/* PROTECTED ROUTES - Login required */}
-        <Route path="/cart" element={
-          <ProtectedRoute><Cart /></ProtectedRoute>
-        } />
-        <Route path="/checkout" element={
-          <ProtectedRoute><Checkout /></ProtectedRoute>
-        } />
-        <Route path="/payment" element={
-          <ProtectedRoute><PaymentPage /></ProtectedRoute>
-        } />
-        <Route path="/orderconfirm" element={
-          <ProtectedRoute><OrderConfirmation /></ProtectedRoute>
-        } />
-        <Route path="/profile" element={
-          <ProtectedRoute><Profile /></ProtectedRoute>
-        } />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute>
+              <PaymentPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orderconfirm"
+          element={
+            <ProtectedRoute>
+              <OrderConfirmation />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/wishlist" element={
-  <ProtectedRoute><Wishlist /></ProtectedRoute>
-} />
-
+        <Route
+          path="/wishlist"
+          element={
+            <ProtectedRoute>
+              <Wishlist />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+<Route path="/terms-conditions" element={<TermsConditions />} />
+<Route path="/return-policy" element={<ReturnPolicy />} />
       </Routes>
     </BrowserRouter>
   );
