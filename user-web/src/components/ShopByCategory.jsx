@@ -137,12 +137,12 @@ const ShopByCategory = () => {
       </div>
 
       {/* Single scrollable row */}
-      <div className="w-full px-6 overflow-x-auto scrollbar-hide">
+      <div className="w-full px-6">
         <div className="flex gap-6 w-max mx-auto">
           {categories.map((category) => (
             <div
               key={category.id}
-              className="group flex flex-col items-center gap-2 cursor-pointer w-32"
+              className="group flex flex-col items-center gap-2 cursor-pointer w-28"
             >
               {/* Icon — rounded bg appears on hover */}
               <div className="text-5xl text-red-600 p-4 rounded-full group-hover:bg-red-500 group-hover:text-white transition duration-300">
