@@ -1,46 +1,59 @@
-import b1 from "../assets/b1.jpg";
-import b2 from "../assets/b2.jpg";
-import b3 from "../assets/b3.jpg";
-import main from "../assets/main.png";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-const products = [
-  {
-    id: 1,
-    name: "Exide EGO 550Ah",
-    price: "₹4,899",
-    image: b1,
-  },
-  {
-    id: 2,
-    name: "Amaron CRBAT 7",
-    price: "₹12,999",
-    image: b2,
-  },
-  {
-    id: 3,
-    name: "Hero MotoCorp Battery",
-    price: "₹1,899",
-    image: b3,
-  },
-  {
-    id: 4,
-    name: "Luminous Solar 120Ah",
-    price: "₹6,999",
-    image: main,
-  },
-   {
-    id: 5,
-    name: "Luminous Solar 120Ah",
-    price: "₹6,999",
-    image: main,
-  },
-];
+import { getProducts } from "../context/authApi";
+import { useNavigate } from "react-router-dom";
+import { addToCart } from "../context/authApi";
 
 const FeaturedProducts = () => {
+const navigate = useNavigate();
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchProducts = async () => {
+    try {
+      const data = await getProducts();
+
+      // adjust based on API response
+      setProducts(data.results || data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleAddToCart = async (productId) => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    alert("Please login first!");
+    navigate("/login");
+    return;
+  }
+
+  try {
+    await addToCart({
+      productId: productId,
+      comboId: null, // since this is normal product list
+      quantity: 1,
+    });
+
+    alert("Added to cart!");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to add to cart");
+  }
+};
+
   return (
     <section className="py-16 bg-white">
-      <div className="w-full  px-4 lg:px-8">
+      <div className="w-full px-4 lg:px-8">
+
         <div className="flex justify-between items-center mb-8">
           <h3 className="text-2xl md:text-3xl font-bold text-black">
             Featured Products
@@ -52,33 +65,54 @@ const FeaturedProducts = () => {
           </Link>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {products.map((product) => (
+        {loading ? (
+          <p className="text-center">Loading products...</p>
+        ) : (
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+            {products.map((product) => (
             <div
-              key={product.id}
-              className="bg-white border border-gray-200 rounded-xl hover:shadow-lg transition p-4"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="h-40 mx-auto object-contain"
-              />
+  key={product.id}
+  onClick={() => navigate(`/productdetail/${product.id}`)}
+  className="cursor-pointer"
+>
 
-              <h4 className="mt-4 font-semibold text-black">{product.name}</h4>
+  <img
+    src={`https://batteriesbazaar.com${product.image}`}
+    alt={product.name}
+    className="h-40 mx-auto object-contain"
+  />
 
-              <p className="mt-2 text-lg font-bold text-red-600">
-                {product.price}
-              </p>
+  <h4 className="mt-4 font-semibold text-black">
+    {product.name}
+  </h4>
 
-              <button className="mt-4 w-full bg-red-600 hover:bg-black text-white py-2 rounded-lg transition duration-300">
-                Add to Cart
-              </button>
-            </div>
-          ))}
-        </div>
+  <p className="mt-2 text-lg font-bold text-red-600">
+    ₹{product.price}
+  </p>
+
+  {/* IMPORTANT: stop propagation */}
+  <button
+   onClick={(e) => {
+  e.stopPropagation();
+  handleAddToCart(product.id);
+}}
+    className="mt-4 w-full bg-red-600 hover:bg-black text-white py-2 rounded-lg transition duration-300"
+  >
+    Add to Cart
+  </button>
+
+</div>
+            ))}
+
+          </div>
+        )}
+
       </div>
     </section>
   );
 };
 
 export default FeaturedProducts;
+
+

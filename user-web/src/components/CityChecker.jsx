@@ -1,14 +1,36 @@
 import { useState } from "react";
 import { MapPin } from "lucide-react";
 import logo from "../assets/logo.jpeg";
+import { checkServiceAvailability } from "../context/authApi";
 
 const CityChecker = () => {
   const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
 
-  const handleCheck = () => {
-    if (!city) return alert("Enter city name");
-    alert(`Service available in ${city} (Demo UI)`);
-  };
+  const handleCheck = async () => {
+  if (!city) return alert("Enter city name");
+
+  setLoading(true);
+
+  try {
+    const data = await checkServiceAvailability(city);
+
+    console.log("Service API response:", data); // 🔥 debug
+
+   if (data.service_available === true) {
+  setResult("available");
+} else {
+  setResult("not_available");
+}
+
+  } catch (err) {
+    console.error(err);
+    alert("Error checking service availability");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <section className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-20">
@@ -54,10 +76,22 @@ const CityChecker = () => {
             </div>
             <button
               onClick={handleCheck}
+              disabled={loading}
               className="bg-black px-5 py-2 mt-3 rounded-lg text-sm font-semibold hover:bg-red-500 transition"
             >
-              Check
+              {loading ? "Checking..." : "Check"}
             </button>
+           {result === "available" && (
+  <p className="text-green-200 mt-2 font-medium">
+    ✅ Service available in {city}
+  </p>
+)}
+
+{result === "not_available" && (
+  <p className="text-yellow-200 mt-2 font-medium">
+    ❌ Not available in {city}
+  </p>
+)}
           </div>
 
           {/* Button */}

@@ -93,6 +93,9 @@ import logo from "../../assets/logo.jpeg";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { loginUser } from "../../context/authApi";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const Login = () => {
 
@@ -115,16 +118,22 @@ const Login = () => {
 
     try {
       await loginUser(form);
-      alert("Login Successful");
-      navigate("/");
+      toast.success("Login Successful!", {
+        onClose: () => navigate("/"),
+        autoClose: 1500,
+      });
+
     } catch (err) {
-      alert(err.message);
+     toast.error(err.message || "Login failed. Please try again.");
+
     }
   };
 
   return (
     <>
     <Navbar />
+          <ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} closeOnClick pauseOnHover />
+
     <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
 
       <div className="max-w-6xl mx-auto w-full py-16 px-6">

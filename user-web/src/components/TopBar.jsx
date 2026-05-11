@@ -65,29 +65,34 @@ import { Phone } from "lucide-react";
 const TopBar = () => {
   return (
     <div className="bg-gradient-to-r from-red-600 to-red-500 text-white text-sm shadow-md">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between py-2">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 flex items-center justify-between py-2 gap-2">
 
         {/* 📞 Left */}
-        <div className="flex items-center gap-2 font-medium">
-          <Phone size={16} className="animate-pulse" />
-          <span>
+        <div className="flex items-center gap-2 font-medium min-w-0">
+          <Phone size={16} className="animate-pulse flex-shrink-0" />
+          <span className="hidden sm:inline truncate">
             Want to Order or Have any Query? Call{" "}
             <strong className="text-yellow-300">
               +91 9483808080 / 9731140727
             </strong>
           </span>
+          {/* Mobile: show number only */}
+          <span className="sm:hidden text-xs">
+            <strong className="text-yellow-300">+91 9483808080</strong>
+          </span>
         </div>
 
         {/* 👉 Right Links */}
-        <div className="flex items-center gap-6 font-medium">
-          <a href="/" className="hover:text-yellow-300 transition">Home</a>
-          <a href="/about" className="hover:text-yellow-300 transition">About</a>
-          <a href="/service" className="hover:text-yellow-300 transition">Service Area</a>
-          <a href="/product" className="hover:text-yellow-300 transition">Products</a>
+        <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 font-medium flex-shrink-0">
+          {/* Hide nav links on mobile, show from md up */}
+          <a href="/" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Home</a>
+          <a href="/about" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">About</a>
+          <a href="/service" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Service Area</a>
+          <a href="/product" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Products</a>
 
           <a
             href="/sell"
-            className="bg-yellow-400 text-black px-3 py-1 rounded-md font-semibold hover:bg-yellow-300 transition shadow"
+            className="bg-yellow-400 text-black px-2.5 sm:px-3 py-1 rounded-md font-semibold hover:bg-yellow-300 transition shadow whitespace-nowrap text-xs sm:text-sm"
           >
             🏪 Sell Now
           </a>

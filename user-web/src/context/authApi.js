@@ -11,7 +11,7 @@ export const registerUser = async (data) => {
     body: JSON.stringify(data),
   });
   const result = await response.json();
-  if (!response.ok) throw new Error(result.message || "Registration failed");
+  if (!response.ok) throw new Error(JSON.stringify(result)); // ← show full error
   return result;
 };
 
@@ -31,32 +31,117 @@ export const loginUser = async (data) => {
   return result;
 };
 
-// ADD TO CART
-export const addToCart = async (productId, quantity = 1) => {
+
+// ─── REFRESH TOKEN ────────────────────────────────────────────────────────────
+export const refreshAccessToken = async () => {
+  const refresh = localStorage.getItem("refreshToken");
+  if (!refresh) throw new Error("No refresh token");
+
+  const response = await fetch(`${BASE_URL}/api/users/token/refresh/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ refresh }),
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error("Token refresh failed");
+
+  localStorage.setItem("accessToken", result.access);
+  return result.access;
+};
+
+// ─── FETCH WITH AUTO REFRESH ──────────────────────────────────────────────────
+export const authFetch = async (url, options = {}) => {
   const token = localStorage.getItem("accessToken");
-  console.log("Token being sent:", token); // Debug
-  
+  const headers = {
+    "Content-Type": "application/json",
+    ...options.headers,
+    Authorization: `Bearer ${token}`,
+  };
+
+  let response = await fetch(url, { ...options, headers });
+
+  // If 401, try refresh once
+  if (response.status === 401) {
+    try {
+      const newToken = await refreshAccessToken();
+      response = await fetch(url, {
+        ...options,
+        headers: { ...headers, Authorization: `Bearer ${newToken}` },
+      });
+    } catch {
+      // Refresh failed — logout
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+      throw new Error("Session expired. Please login again.");
+    }
+  }
+
+  return response;
+};
+// ADD TO CART
+// export const addToCart = async ({ productId, comboId, quantity = 1 }) => {
+//   const token = localStorage.getItem("accessToken");
+
+//   const body = comboId
+//     ? { combo_product: comboId, quantity }
+//     : { product: productId, quantity };
+
+//   const response = await fetch(`${BASE_URL}/api/cart/items/`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${token}`,
+//     },
+//     body: JSON.stringify(body),
+//   });
+
+//   const result = await response.json();
+
+//   if (!response.ok) throw new Error(JSON.stringify(result));
+
+//   return result;
+// };
+
+export const addToCart = async ({ productId, comboId, quantity = 1 }) => {
+  const token = localStorage.getItem("accessToken");
+ 
+  // ── Build body correctly — never send both, never send null ───────────────
+  let body;
+  if (comboId) {
+    body = { combo_product: comboId, quantity };
+  } else {
+    body = { product: productId, quantity };
+  }
+ 
   const response = await fetch(`${BASE_URL}/api/cart/items/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ product: productId, quantity })
+    body: JSON.stringify(body),
   });
-
-  const text = await response.text();
-  console.log("Cart API response:", text); // Debug
-  
-  try {
-    const result = JSON.parse(text);
-    if (!response.ok) throw new Error(JSON.stringify(result));
-    return result;
-  } catch {
-    throw new Error("Server error: " + text.substring(0, 100));
-  }
+ 
+  const result = await response.json();
+  if (!response.ok) throw new Error(JSON.stringify(result));
+  return result;
 };
 
+
+// GET ALL PRODUCTS
+export const getProducts = async () => {
+  const response = await fetch(`${BASE_URL}/api/products/`);
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch products");
+  }
+
+  return result;
+};
 // GET CART ITEMS
 export const getCartItems = async () => {
   const response = await fetch(`${BASE_URL}/api/cart/items/`, {
@@ -271,4 +356,146 @@ export const removeFromWishlist = async (id) => {
   });
   if (!response.ok) throw new Error("Failed to remove from wishlist");
   return true;
+};
+
+export const getComboProducts = async () => {
+  const response = await fetch(`${BASE_URL}/api/products/combos/`);
+  const result = await response.json();
+
+  if (!response.ok) throw new Error("Failed to fetch combos");
+  return result;
+};
+export const checkServiceAvailability = async (city) => {
+  const response = await fetch(
+    `${BASE_URL}/api/locations/service-availability/?city=${city}`
+  );
+
+  const result = await response.json();
+
+  if (!response.ok) throw new Error(result.message || "Failed to check service");
+
+  return result;
+};
+
+const handleBuyNow = async () => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    alert("Please login to buy!");
+    navigate("/login");
+    return;
+  }
+
+  try {
+    // Add item to cart first
+    await addToCart({
+      productId: isCombo ? null : product.id,
+      combo_product: isCombo ? product.id : null,
+      quantity: 1,
+    });
+
+    // Then go to checkout
+    navigate("/checkout");
+  } catch (err) {
+    alert("Failed to proceed to checkout");
+  }
+};
+
+
+// ─── QUICK BATTERY FINDER ────────────────────────────────────────────────────
+
+
+export const getMakes = async () => {
+  const response = await fetch(`${BASE_URL}/api/products/makes/`);
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to fetch makes");
+  return Array.isArray(result) ? result : result.results || [];
+};
+
+export const getModels = async (makeId) => {
+  const response = await fetch(`${BASE_URL}/api/products/models/?make_id=${makeId}`);
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to fetch models");
+  return Array.isArray(result) ? result : result.results || [];
+};
+
+export const getProductTypes = async () => {
+  const response = await fetch(`${BASE_URL}/api/products/types/`);
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to fetch product types");
+  // Returns list of {id, name, slug} directly — no pagination
+  return Array.isArray(result) ? result : Object.values(result);
+};
+
+export const getBrands = async () => {
+  const response = await fetch(`${BASE_URL}/api/products/brands/`);
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to fetch brands");
+  // Returns list of {id, name, slug} directly — no pagination
+  return Array.isArray(result) ? result : Object.values(result);
+};;
+
+export const getStates = async () => {
+  const response = await fetch(`${BASE_URL}/api/locations/states/`);
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to fetch states");
+  return Array.isArray(result) ? result : result.results || [];
+};
+
+export const getCities = async (stateId) => {
+  const response = await fetch(`${BASE_URL}/api/locations/cities/?state_id=${stateId}`);
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to fetch cities");
+  return Array.isArray(result) ? result : result.results || [];
+};
+ 
+export const filterProducts = async ({ product_type, make_id, model_id, brand_id, state_id, city_id }) => {
+  const params = new URLSearchParams(
+    Object.fromEntries(
+      Object.entries({ product_type, make_id, model_id, brand_id, state_id, city_id }).filter(([, v]) => v)
+    )
+  ).toString();
+  const response = await fetch(`${BASE_URL}/api/products/filter/?${params}`);
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to filter products");
+  return result;
+};
+
+
+// CREATE PAYMENT
+export const createPayment = async (data) => {
+  const response = await fetch(`${BASE_URL}/api/payments/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
+    },
+    body: JSON.stringify(data)
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(JSON.stringify(result));
+  return result;
+};
+
+// CREATE RAZORPAY ORDER
+export const createRazorpayOrder = async (paymentId) => {
+  const response = await fetch(`${BASE_URL}/api/payments/${paymentId}/create_razorpay_order/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
+    },
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(JSON.stringify(result));
+  return result;
+};
+
+export const getPayments = async () => {
+  const response = await fetch(`${BASE_URL}/api/payments/`, {
+    headers: { "Authorization": `Bearer ${getToken()}` }
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error("Failed to get payments");
+  return result;
 };

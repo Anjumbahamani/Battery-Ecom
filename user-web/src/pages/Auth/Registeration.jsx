@@ -147,16 +147,15 @@ const Register = () => {
 
     try {
       const payload = {
-        username: form.name,
-        email: form.email,
-        password: form.password,
-        phone_number: form.phone,
-        first_name: form.name,
-        last_name: "",
-        role: "CUSTOMER",
-        business_name: "N/A"
-      };
-
+  username: form.email, // ← use email as username instead of name
+  email: form.email,
+  password: form.password,
+  phone_number: form.phone,
+  first_name: form.name,
+  last_name: "",
+  role: "CUSTOMER",
+  business_name: "N/A"
+};
       await registerUser(payload);
 
      alert("Registration Successful! Please login.");

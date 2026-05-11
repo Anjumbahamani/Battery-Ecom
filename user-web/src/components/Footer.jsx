@@ -77,7 +77,7 @@ const Footer = () => {
 
               <p className="flex items-start gap-2">
                 <FaMapMarkerAlt className="text-red-500 mt-1" />
-                Delhi NCR, India
+               Flat No 204 2nd Floor Safa Residency Veerbhadra Nagar Belagavi 590016.
               </p>
             </div>
           </div>

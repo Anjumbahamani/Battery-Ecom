@@ -93,7 +93,7 @@ const TopBrands = () => {
               <img
                 src={logo}
                 alt="brand"
-                className="h-20 object-contain"
+                className="h-24 object-contain"
               />
             </div>
           ))}

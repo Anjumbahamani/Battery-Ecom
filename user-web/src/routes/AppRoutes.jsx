@@ -13,6 +13,7 @@ import Wishlist from "../pages/Wishlist";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsConditions from "../pages/TermConditions";
 import ReturnPolicy from "../pages/ReturnPolicy";
+import AboutUs from "../pages/About";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -32,8 +33,10 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<AboutUs/>} />
         <Route path="/product" element={<Products />} />
         <Route path="/productdetail/:id" element={<ProductDetail />} />
+        <Route path="/productdetail/combo/:id" element={<ProductDetail />} />
 
         {/* PROTECTED ROUTES - Login required */}
         <Route
