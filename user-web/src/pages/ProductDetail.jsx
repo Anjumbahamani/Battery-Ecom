@@ -540,8 +540,8 @@ const ProductDetail = () => {
         if (!res.ok) throw new Error("Not found");
         const data = await res.json();
         setProduct({ ...data, is_combo: isCombo });
-        if (data.images?.length > 0) setActiveImg(`${BASE_URL}${data.images[0].image}`);
-        else if (data.image) setActiveImg(`${BASE_URL}${data.image}`);
+if (data.images?.length > 0) setActiveImg(data.images[0].image);
+else if (data.image) setActiveImg(data.image);
       } catch (err) {
         console.error(err);
         setProduct(null);
@@ -737,11 +737,11 @@ const handleBuyNow = async () => {
   };
 
   // ─── Derived values ───────────────────────────────────────────────────────
-  const getImages = () => {
-    if (product.images?.length > 0) return product.images.map((img) => `${BASE_URL}${img.image}`);
-    if (product.image) return [`${BASE_URL}${product.image}`];
+ const getImages = () => {
+    if (product.images?.length > 0) return product.images.map((img) => img.image);
+    if (product.image) return [product.image];
     return [PLACEHOLDER];
-  };
+};
 
   const exchangeDiscount = product?.exchange_available && exchangeChecked
     ? parseFloat(product.exchange_discount || 0)

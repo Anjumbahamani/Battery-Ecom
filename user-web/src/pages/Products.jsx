@@ -598,7 +598,13 @@ const Products = () => {
                     className="border border-gray-200 rounded-xl p-3 sm:p-4 hover:shadow-lg transition"
                   >
                     <img
-                      src={product.image ? `${BASE_URL}${product.image}` : "/placeholder.png"}
+                     src={
+  product.image
+    ? product.image.startsWith("http")
+      ? product.image
+      : `${BASE_URL}${product.image}`
+    : "/placeholder.png"
+}
                       alt={product.name}
                       className="h-24 sm:h-32 md:h-36 mx-auto object-contain cursor-pointer"
                       onClick={() => navigate(`/productdetail/${product.id}`)}

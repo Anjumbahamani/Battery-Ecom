@@ -87,11 +87,11 @@ const TopBar = () => {
           {/* Hide nav links on mobile, show from md up */}
           <a href="/" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Home</a>
           <a href="/about" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">About</a>
-          <a href="/service" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Service Area</a>
+          <a href="/about" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Service Area</a>
           <a href="/product" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Products</a>
 
           <a
-            href="/sell"
+            href="https://seller.batteriesbazaar.com/"
             className="bg-yellow-400 text-black px-2.5 sm:px-3 py-1 rounded-md font-semibold hover:bg-yellow-300 transition shadow whitespace-nowrap text-xs sm:text-sm"
           >
             🏪 Sell Now

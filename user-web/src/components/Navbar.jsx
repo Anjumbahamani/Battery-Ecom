@@ -83,6 +83,7 @@
 import { useState } from "react";
 import { ShoppingCart, User, Wrench, PackageCheck, ShieldCheck, Heart, Menu, X } from "lucide-react";
 import logo_battery from "../assets/logo_battery.jpeg";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -95,11 +96,13 @@ const Navbar = () => {
 
           {/* 🔷 Logo */}
           <div>
+            <Link to="/">
             <img
               src={logo_battery}
               alt="logo"
               className="h-12 sm:h-16 object-contain hover:scale-105 transition"
             />
+            </Link>
           </div>
 
           {/* 🔥 Highlight Boxes — desktop only */}

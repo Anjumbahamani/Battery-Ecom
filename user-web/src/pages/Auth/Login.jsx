@@ -1,6 +1,6 @@
 // import { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
-// import logo from "../../assets/logo.jpeg"; 
+// import logo from "../../assets/logo.jpeg";
 
 // const Login = () => {
 //   const navigate = useNavigate();
@@ -23,7 +23,7 @@
 
 //   return (
 //     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      
+
 //       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
 
 //         {/* Logo */}
@@ -96,20 +96,18 @@ import { loginUser } from "../../context/authApi";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-
 const Login = () => {
-
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -122,120 +120,115 @@ const Login = () => {
         onClose: () => navigate("/"),
         autoClose: 1500,
       });
-
     } catch (err) {
-     toast.error(err.message || "Login failed. Please try again.");
-
+      toast.error(err.message || "Login failed. Please try again.");
     }
   };
 
   return (
     <>
-    <Navbar />
-          <ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} closeOnClick pauseOnHover />
+      <Navbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+      />
 
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
+      <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
+        <div className="max-w-6xl mx-auto w-full py-16 px-6">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* LEFT LOGIN CARD */}
+            <div className="bg-white rounded-xl shadow-md p-8">
+              <div className="flex justify-center mb-6">
+                <img src={logo} className="h-14 object-contain" alt="Logo" />
+              </div>
 
-      <div className="max-w-6xl mx-auto w-full py-16 px-6">
+              <h2 className="text-2xl font-bold text-center">Welcome Back!</h2>
+              <p className="text-center text-gray-500 mt-1 mb-8">
+                Sign in to continue your shopping
+              </p>
 
-        <div className="grid md:grid-cols-2 gap-8">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    className="w-full border rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-400"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-          {/* LEFT LOGIN CARD */}
-          <div className="bg-white rounded-xl shadow-md p-8">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    className="w-full border rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-400"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-            <div className="flex justify-center mb-4">
-              <img src={logo} className="h-12 object-contain"/>
+                <button
+                  type="submit"
+                  className="w-full bg-red-600 text-white py-2.5 rounded-lg hover:bg-black transition font-semibold"
+                >
+                  Login
+                </button>
+              </form>
+
+              <p className="text-xs text-center text-gray-400 mt-5">
+                By continuing you agree to our{" "}
+                <span className="text-red-600">Terms of Service</span> and{" "}
+                <span className="text-red-600">Privacy Policy</span>
+              </p>
+
+              <p className="text-sm text-center mt-3">
+                Don't have an account?{" "}
+                <Link to="/register" className="text-red-600 font-medium">
+                  Sign up here
+                </Link>
+              </p>
             </div>
 
-            <h2 className="text-2xl font-bold text-center">
-              Welcome Back!
-            </h2>
+            {/* RIGHT SIDE SAME (unchanged) */}
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl shadow-md p-6">
+                <h3 className="text-xl font-semibold mb-4">Why Sign In?</h3>
+                <ul className="space-y-3 text-sm text-gray-600">
+                  <li>⚡ Faster Checkout</li>
+                  <li>❤️ Wishlist & Favorites</li>
+                  <li>📦 Order Tracking</li>
+                  <li>🎁 Exclusive Offers</li>
+                </ul>
+              </div>
 
-            <p className="text-center text-gray-500 mb-6">
-              Sign in to continue your shopping
-            </p>
-
-            {/* KEEPING YOUR UI */}
-            <div className="flex border rounded-lg mb-6 overflow-hidden">
-              <button className="w-1/2 py-2 bg-red-100 text-red-600 font-semibold">
-                Email Login
-              </button>
-              <button className="w-1/2 py-2 text-gray-500">
-                Mobile OTP
-              </button>
+              <div className="bg-white rounded-xl shadow-md p-6">
+                <h3 className="font-semibold mb-4">
+                  Your Security is Our Priority
+                </h3>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li>✔ SSL encrypted data transmission</li>
+                  <li>✔ Secure payment processing</li>
+                  <li>✔ Privacy protection guaranteed</li>
+                </ul>
+              </div>
             </div>
-
-            <form onSubmit={handleSubmit}>
-
-              <label className="text-sm font-medium">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter email"
-                className="w-full border rounded-lg px-4 py-2 mt-1 mb-4 focus:outline-red-500"
-                onChange={handleChange}
-              />
-
-              <label className="text-sm font-medium">Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                className="w-full border rounded-lg px-4 py-2 mt-1 mb-4 focus:outline-red-500"
-                onChange={handleChange}
-              />
-
-              <button className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-black transition">
-                Login
-              </button>
-
-            </form>
-
-            <p className="text-xs text-center text-gray-400 mt-4">
-              By continuing you agree to our
-              <span className="text-red-600"> Terms of Service </span>
-              and
-              <span className="text-red-600"> Privacy Policy</span>
-            </p>
-
-            <p className="text-sm text-center mt-4">
-              Don't have an account?
-              <Link to="/register" className="text-red-600 ml-1">
-                Sign up here
-              </Link>
-            </p>
-
           </div>
-
-          {/* RIGHT SIDE SAME (unchanged) */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl p-6">
-              <h3 className="text-xl font-semibold mb-4">Why Sign In?</h3>
-              <ul className="space-y-3 text-sm">
-                <li>⚡ Faster Checkout</li>
-                <li>❤️ Wishlist & Favorites</li>
-                <li>📦 Order Tracking</li>
-                <li>🎁 Exclusive Offers</li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h3 className="font-semibold mb-4">Your Security is Our Priority</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>✔ SSL encrypted data transmission</li>
-                <li>✔ Secure payment processing</li>
-                <li>✔ Privacy protection guaranteed</li>
-                <li>✔ OTP verification for mobile login</li>
-              </ul>
-            </div>
-          </div>
-
         </div>
-
       </div>
 
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };

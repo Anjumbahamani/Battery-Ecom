@@ -52,7 +52,7 @@
 //   return (
 //     <section className="py-16 bg-white">
 //       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        
+
 //         {/* Section Header */}
 //         <div className="text-center mb-12">
 //           <h2 className="text-3xl md:text-4xl font-bold text-black">
@@ -101,7 +101,6 @@ import {
   FaTools,
   FaBolt,
 } from "react-icons/fa";
-
 import {
   GiElectric,
   GiPowerGenerator,
@@ -117,17 +116,16 @@ const categories = [
   { id: 5, name: "Golf Cart Batteries", icon: <FaBus /> },
   { id: 6, name: "Floor Cleaning Batteries", icon: <FaTools /> },
   { id: 7, name: "Deep Cycle Batteries", icon: <GiElectric /> },
-  { id: 8, name: "Scissor Lift Batteries", icon: <GiForklift /> },
+  // { id: 8,  name: "Scissor Lift Batteries",    icon: <GiForklift /> },
   { id: 9, name: "Truck Batteries", icon: <FaTruck /> },
   { id: 10, name: "Industrial Batteries", icon: <FaIndustry /> },
   { id: 11, name: "Generator Batteries", icon: <GiPowerGenerator /> },
-  { id: 12, name: "Mining Equipment Batteries", icon: <GiMiningHelmet /> },
+  // { id: 12, name: "Mining Equipment Batteries",icon: <GiMiningHelmet /> },
 ];
 
 const ShopByCategory = () => {
   return (
     <section className="py-16 bg-gray-50">
-
       {/* Header */}
       <div className="text-center mb-12 px-4">
         <h2 className="text-4xl md:text-5xl font-bold">
@@ -138,31 +136,21 @@ const ShopByCategory = () => {
         </p>
       </div>
 
-      {/* GRID */}
-      <div className="w-full px-4">
-        <div
-          className="
-          grid 
-          grid-cols-2 
-          sm:grid-cols-3 
-          md:grid-cols-4 
-          lg:grid-cols-6 
-          xl:grid-cols-8 
-          gap-6
-        "
-        >
+      {/* Single scrollable row */}
+      <div className="w-full px-6 overflow-x-auto scrollbar-hide">
+        <div className="flex gap-6 w-max mx-auto">
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-white border rounded-xl p-5 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:-translate-y-1 transition cursor-pointer"
+              className="group flex flex-col items-center gap-2 cursor-pointer w-32"
             >
-              {/* ICON */}
-              <div className="text-5xl text-red-600 mb-3 group-hover:scale-110 transition">
+              {/* Icon — rounded bg appears on hover */}
+              <div className="text-5xl text-red-600 p-4 rounded-full group-hover:bg-red-500 group-hover:text-white transition duration-300">
                 {category.icon}
               </div>
 
-              {/* TEXT */}
-              <p className="text-sm md:text-base font-semibold text-gray-800 leading-tight">
+              {/* Name */}
+              <p className="text-sm font-semibold text-gray-700 text-center leading-tight">
                 {category.name}
               </p>
             </div>
@@ -226,16 +214,16 @@ export default ShopByCategory;
 //       {/* GRID (FIXED ALIGNMENT) */}
 //       <div className="w-full px-4">
 //         <div className="
-//           grid 
-//           grid-cols-3 
-//           sm:grid-cols-4 
-//           md:grid-cols-6 
-//           lg:grid-cols-8 
-//           xl:grid-cols-12 
-//           gap-6 
+//           grid
+//           grid-cols-3
+//           sm:grid-cols-4
+//           md:grid-cols-6
+//           lg:grid-cols-8
+//           xl:grid-cols-12
+//           gap-6
 //           text-center
 //         ">
-          
+
 //           {categories.map((category) => (
 //             <div
 //               key={category.id}
