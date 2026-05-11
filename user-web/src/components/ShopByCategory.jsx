@@ -92,74 +92,70 @@
 // export default ShopByCategory;
 import React from "react";
 import {
-  FaCar,
-  FaTruck,
-  FaBus,
-  FaBatteryFull,
-  FaChargingStation,
-  FaIndustry,
-  FaTools,
-  FaBolt,
+  FaCar, FaTruck, FaBus, FaBatteryFull, FaChargingStation,
+  FaIndustry, FaTools, FaBolt,
 } from "react-icons/fa";
-import {
-  GiElectric,
-  GiPowerGenerator,
-  GiForklift,
-  GiMiningHelmet,
-} from "react-icons/gi";
+import { GiElectric, GiPowerGenerator } from "react-icons/gi";
 
 const categories = [
-  { id: 1, name: "Car Battery", icon: <FaCar /> },
-  { id: 2, name: "Inverter Battery", icon: <FaBolt /> },
-  { id: 3, name: "Inverters", icon: <FaChargingStation /> },
-  { id: 4, name: "UPS Batteries", icon: <FaBatteryFull /> },
-  { id: 5, name: "Golf Cart Batteries", icon: <FaBus /> },
-  { id: 6, name: "Floor Cleaning Batteries", icon: <FaTools /> },
-  { id: 7, name: "Deep Cycle Batteries", icon: <GiElectric /> },
-  // { id: 8,  name: "Scissor Lift Batteries",    icon: <GiForklift /> },
-  { id: 9, name: "Truck Batteries", icon: <FaTruck /> },
-  { id: 10, name: "Industrial Batteries", icon: <FaIndustry /> },
-  { id: 11, name: "Generator Batteries", icon: <GiPowerGenerator /> },
-  // { id: 12, name: "Mining Equipment Batteries",icon: <GiMiningHelmet /> },
+  { id: 1,  name: "Car Battery",             icon: <FaCar /> },
+  { id: 2,  name: "Inverter Battery",         icon: <FaBolt /> },
+  { id: 3,  name: "Inverters",                icon: <FaChargingStation /> },
+  { id: 4,  name: "UPS Batteries",            icon: <FaBatteryFull /> },
+  { id: 5,  name: "Golf Cart Batteries",      icon: <FaBus /> },
+  { id: 6,  name: "Floor Cleaning Batteries", icon: <FaTools /> },
+  { id: 7,  name: "Deep Cycle Batteries",     icon: <GiElectric /> },
+  { id: 9,  name: "Truck Batteries",          icon: <FaTruck /> },
+  { id: 10, name: "Industrial Batteries",     icon: <FaIndustry /> },
+  { id: 11, name: "Generator Batteries",      icon: <GiPowerGenerator /> },
 ];
 
 const ShopByCategory = () => {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-12 md:py-16 bg-gray-50">
+
       {/* Header */}
-      <div className="text-center mb-12 px-4">
-        <h2 className="text-4xl md:text-5xl font-bold">
+      <div className="text-center mb-8 md:mb-12 px-4">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
           SHOP BY <span className="text-red-600">CATEGORY</span>
         </h2>
-        <p className="text-gray-600 mt-4 text-lg">
+        <p className="text-gray-600 mt-3 text-base md:text-lg">
           Explore all battery categories across India
         </p>
       </div>
 
-      {/* Single scrollable row */}
-      <div className="w-full px-6">
-        <div className="flex gap-6 w-max mx-auto">
-          {categories.map((category) => (
-            <div
-              key={category.id}
-              className="group flex flex-col items-center gap-2 cursor-pointer w-28"
-            >
-              {/* Icon — rounded bg appears on hover */}
-              <div className="text-5xl text-red-600 p-4 rounded-full group-hover:bg-red-500 group-hover:text-white transition duration-300">
-                {category.icon}
-              </div>
+      {/* Mobile & Tablet: grid wrap | Desktop: single scrollable row */}
+      <div className="w-full px-4 md:px-6">
 
-              {/* Name */}
-              <p className="text-sm font-semibold text-gray-700 text-center leading-tight">
-                {category.name}
-              </p>
-            </div>
+        {/* Mobile grid (up to md) */}
+        <div className="grid grid-cols-4 gap-4 md:hidden">
+          {categories.map((category) => (
+            <CategoryItem key={category.id} category={category} />
           ))}
         </div>
+
+        {/* Desktop: single row, centered, scrollable if needed */}
+        <div className="hidden md:flex gap-4 lg:gap-6 justify-center flex-wrap lg:flex-nowrap lg:overflow-x-auto">
+          {categories.map((category) => (
+            <CategoryItem key={category.id} category={category} />
+          ))}
+        </div>
+
       </div>
     </section>
   );
 };
+
+const CategoryItem = ({ category }) => (
+  <div className="group flex flex-col items-center gap-2 cursor-pointer w-20 md:w-24 lg:w-28">
+    <div className="text-3xl md:text-4xl lg:text-5xl text-red-600 p-3 md:p-4 rounded-full group-hover:bg-red-500 group-hover:text-white transition duration-300">
+      {category.icon}
+    </div>
+    <p className="text-xs md:text-sm font-semibold text-gray-700 text-center leading-tight">
+      {category.name}
+    </p>
+  </div>
+);
 
 export default ShopByCategory;
 
