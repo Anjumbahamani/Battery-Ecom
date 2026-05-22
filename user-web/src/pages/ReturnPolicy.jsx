@@ -1,9 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import TopBar from "../components/TopBar";
 
 const ReturnPolicy = () => {
   return (
     <>
+    <TopBar/>
       <Navbar />
       <section className="bg-gray-50 py-16">
         <div className="max-w-4xl mx-auto px-6">

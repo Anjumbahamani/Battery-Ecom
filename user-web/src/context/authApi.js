@@ -4,6 +4,7 @@ export const BASE_URL = "https://batteriesbazaar.com";
 const getToken = () => localStorage.getItem("accessToken");
 
 // REGISTER
+// REGISTER
 export const registerUser = async (data) => {
   const response = await fetch(`${BASE_URL}/api/users/register/`, {
     method: "POST",
@@ -11,7 +12,18 @@ export const registerUser = async (data) => {
     body: JSON.stringify(data),
   });
   const result = await response.json();
-  if (!response.ok) throw new Error(JSON.stringify(result)); // ← show full error
+  if (!response.ok) {
+    // Extract the first human-readable error message
+    const message =
+      result?.email?.[0] ||
+      result?.phone_number?.[0] ||
+      result?.username?.[0] ||
+      result?.password?.[0] ||
+      result?.detail ||
+      Object.values(result).flat()[0] ||
+      "Registration failed.";
+    throw new Error(message);
+  }
   return result;
 };
 
@@ -432,7 +444,7 @@ export const getBrands = async () => {
   const result = await response.json();
   if (!response.ok) throw new Error("Failed to fetch brands");
   // Returns list of {id, name, slug} directly — no pagination
-  return Array.isArray(result) ? result : Object.values(result);
+return Array.isArray(result) ? result : result.results || [];
 };;
 
 export const getStates = async () => {

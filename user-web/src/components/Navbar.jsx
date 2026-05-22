@@ -92,7 +92,7 @@ const Navbar = () => {
     <div className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
 
-        <div className="flex items-center justify-between h-16 sm:h-20">
+       <div className="flex items-center justify-between h-16 sm:h-20 md:h-24">
 
           {/* 🔷 Logo */}
           <div>
@@ -100,7 +100,7 @@ const Navbar = () => {
             <img
               src={logo_battery}
               alt="logo"
-              className="h-12 sm:h-16 object-contain hover:scale-105 transition"
+               className="h-12 sm:h-16 md:h-20 object-contain hover:scale-105 transition"
             />
             </Link>
           </div>
@@ -163,8 +163,8 @@ const Navbar = () => {
           {/* Nav Links */}
           {[
             { label: "Home", href: "/" },
-            { label: "About", href: "/about" },
-            { label: "Service Area", href: "/service" },
+            { label: "About", href: "/aboutus" },
+            { label: "Service Area", href: "/aboutus" },
             { label: "Products", href: "/product" },
           ].map((link) => (
             <a
@@ -179,7 +179,7 @@ const Navbar = () => {
 
           {/* Sell Now */}
           <a
-            href="/sell"
+            href="https://seller.batteriesbazaar.com/"
             onClick={() => setMenuOpen(false)}
             className="block mt-2 bg-yellow-400 text-black px-3 py-2.5 rounded-lg text-sm font-semibold hover:bg-yellow-300 transition text-center shadow"
           >

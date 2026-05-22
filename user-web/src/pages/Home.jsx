@@ -144,6 +144,8 @@
 // };
 
 // export default Home;
+import { useState, useEffect } from "react";
+import LeadCaptureModal from "../components/LeadCaptureModal";
 import QuickBatteryFinder from "../components/QuickBatteryFinder";
 import ShopByCategory from "../components/ShopByCategory";
 import TopBrands from "../components/TopBrands";
@@ -172,8 +174,42 @@ import AboutUs from "./About";
 
 
 const Home = () => {
+  const [showLead, setShowLead] = useState(false);
+
+  useEffect(() => {
+    // Don't show if already captured this session
+    if (sessionStorage.getItem("lead_captured")) return;
+
+    // Trigger on scroll down
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowLead(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    // Trigger on any click anywhere on page
+    const handleClick = () => {
+      if (!sessionStorage.getItem("lead_captured")) {
+        setShowLead(true);
+        document.removeEventListener("click", handleClick);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
   return (
     <>
+     {showLead && (
+        <LeadCaptureModal onClose={() => setShowLead(false)} />
+      )}
       <TopBar />
       <Navbar />
 

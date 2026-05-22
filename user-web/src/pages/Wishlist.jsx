@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { getWishlist, removeFromWishlist, addToCart, BASE_URL } from "../context/authApi";
+import TopBar from "../components/TopBar";
 
 const PLACEHOLDER = "https://placehold.co/300x300?text=Battery";
 
@@ -47,6 +48,7 @@ const Wishlist = () => {
 
   return (
     <>
+    <TopBar/>
       <Navbar />
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">

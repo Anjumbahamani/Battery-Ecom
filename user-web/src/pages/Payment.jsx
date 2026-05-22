@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import battery from "../assets/b1.jpg";
 import Footer from "../components/Footer";
+import TopBar from "../components/TopBar";
 
 const PaymentPage = () => {
 
@@ -9,6 +10,7 @@ const PaymentPage = () => {
 
   return (
     <>
+    <TopBar/>
       <Navbar />
 
       <section className="bg-gray-100 py-10">

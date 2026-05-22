@@ -1,282 +1,3 @@
-// import { useState } from "react";
-// import Navbar from "../components/Navbar";
-// import b1 from "../assets/b1.jpg";
-// import Footer from "../components/Footer";
-
-// const Checkout = () => {
-
-//   const [selectedAddress, setSelectedAddress] = useState("home");
-//   const [selectedDate, setSelectedDate] = useState("today");
-//   const [selectedSlot, setSelectedSlot] = useState("morning");
-//   const [installation, setInstallation] = useState("standard");
-
-//   return (
-//     <>
-//       <Navbar />
-
-//       <section className="bg-gray-100 py-12">
-
-//         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-3 gap-8">
-
-//           {/* LEFT SIDE */}
-//           <div className="lg:col-span-2 space-y-6">
-
-//             {/* DELIVERY ADDRESS */}
-//             <div className="bg-white border rounded-xl p-6">
-
-//               <div className="flex justify-between mb-4">
-//                 <h3 className="font-bold text-lg">Delivery Address</h3>
-//                 <button className="text-blue-600 text-sm">
-//                   + Add New Address
-//                 </button>
-//               </div>
-
-//               {/* address 1 */}
-//               <label className={`block border rounded-lg p-4 mb-3 cursor-pointer
-//                 ${selectedAddress === "home" ? "border-blue-500 bg-blue-50" : ""}
-//               `}>
-
-//                 <input
-//                   type="radio"
-//                   name="address"
-//                   checked={selectedAddress === "home"}
-//                   onChange={() => setSelectedAddress("home")}
-//                   className="mr-2"
-//                 />
-
-//                 <span className="font-semibold">Home</span>
-//                 <p className="text-sm text-gray-600 mt-1">
-//                   Sarah Wilson <br/>
-//                   1234 Elm Street, Apt 5B <br/>
-//                   San Francisco, CA 94102 <br/>
-//                   +1 (555) 123-4567
-//                 </p>
-
-//               </label>
-
-//               {/* address 2 */}
-//               <label className={`block border rounded-lg p-4 cursor-pointer
-//                 ${selectedAddress === "office" ? "border-blue-500 bg-blue-50" : ""}
-//               `}>
-
-//                 <input
-//                   type="radio"
-//                   name="address"
-//                   checked={selectedAddress === "office"}
-//                   onChange={() => setSelectedAddress("office")}
-//                   className="mr-2"
-//                 />
-
-//                 <span className="font-semibold">Office</span>
-
-//                 <p className="text-sm text-gray-600 mt-1">
-//                   Sarah Wilson <br/>
-//                   456 Market Street, Floor 12 <br/>
-//                   San Francisco, CA 94105
-//                 </p>
-
-//               </label>
-
-//             </div>
-
-//             {/* DELIVERY SCHEDULE */}
-//             <div className="bg-white border rounded-xl p-6">
-
-//               <h3 className="font-bold mb-4">Delivery Schedule</h3>
-
-//               <p className="text-sm mb-2">Select Delivery Date</p>
-
-//               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-
-//                 {[
-//                   { id: "today", label: "Today", date: "Dec 15" },
-//                   { id: "tomorrow", label: "Tomorrow", date: "Dec 16" },
-//                   { id: "wed", label: "Wed", date: "Dec 17" },
-//                   { id: "thu", label: "Thu", date: "Dec 18" },
-//                 ].map((d) => (
-
-//                   <button
-//                     key={d.id}
-//                     onClick={() => setSelectedDate(d.id)}
-//                     className={`border rounded-lg p-3 text-sm
-//                       ${selectedDate === d.id
-//                         ? "border-blue-500 bg-blue-50"
-//                         : ""}
-//                     `}
-//                   >
-//                     <p className="font-semibold">{d.label}</p>
-//                     <p className="text-gray-500">{d.date}</p>
-//                   </button>
-
-//                 ))}
-
-//               </div>
-
-//               <p className="text-sm mb-2">Select Time Slot</p>
-
-//               <div className="grid md:grid-cols-2 gap-3">
-
-//                 {[
-//                   { id: "morning", label: "9:00 AM - 12:00 PM", price: "Free" },
-//                   { id: "afternoon", label: "2:00 PM - 6:00 PM", price: "Free" },
-//                   { id: "evening", label: "6:00 PM - 9:00 PM", price: "₹5.99" },
-//                   { id: "express", label: "Express (2 Hours)", price: "₹15.99" },
-//                 ].map((slot) => (
-
-//                   <button
-//                     key={slot.id}
-//                     onClick={() => setSelectedSlot(slot.id)}
-//                     className={`border rounded-lg p-3 flex justify-between
-//                       ${selectedSlot === slot.id
-//                         ? "border-blue-500 bg-blue-50"
-//                         : ""}
-//                     `}
-//                   >
-
-//                     <span>{slot.label}</span>
-//                     <span className="text-sm text-green-600">
-//                       {slot.price}
-//                     </span>
-
-//                   </button>
-
-//                 ))}
-
-//               </div>
-
-//             </div>
-
-//             {/* INSTALLATION */}
-//             <div className="bg-white border rounded-xl p-6">
-
-//               <h3 className="font-bold mb-4">Installation Service</h3>
-
-//               <div className="space-y-3">
-
-//                 {[
-//                   {
-//                     id: "standard",
-//                     title: "Standard Installation",
-//                     price: "₹49.99",
-//                   },
-//                   {
-//                     id: "premium",
-//                     title: "Premium Installation",
-//                     price: "₹89.99",
-//                   },
-//                   {
-//                     id: "none",
-//                     title: "No Installation",
-//                     price: "Free",
-//                   },
-//                 ].map((opt) => (
-
-//                   <label
-//                     key={opt.id}
-//                     className={`border rounded-lg p-4 flex justify-between cursor-pointer
-//                       ${installation === opt.id
-//                         ? "border-blue-500 bg-blue-50"
-//                         : ""}
-//                     `}
-//                   >
-
-//                     <div>
-//                       <input
-//                         type="radio"
-//                         name="installation"
-//                         checked={installation === opt.id}
-//                         onChange={() => setInstallation(opt.id)}
-//                         className="mr-2"
-//                       />
-
-//                       {opt.title}
-//                     </div>
-
-//                     <span className="text-sm text-green-600">
-//                       {opt.price}
-//                     </span>
-
-//                   </label>
-
-//                 ))}
-
-//               </div>
-
-//             </div>
-
-//           </div>
-
-//           {/* RIGHT SIDE ORDER SUMMARY */}
-//           <div className="bg-white border rounded-xl p-6 h-fit">
-
-//             <h3 className="font-bold mb-4">Order Summary</h3>
-
-//             <div className="flex gap-3 mb-4">
-
-//               <img
-//                 src={b1}
-//                 className="w-16 h-16 object-contain border rounded"
-//               />
-
-//               <div className="text-sm">
-//                 <p className="font-semibold">
-//                   Premium AGM Battery
-//                 </p>
-//                 <p className="text-gray-500">
-//                   12V 70Ah
-//                 </p>
-//               </div>
-
-//               <span className="ml-auto font-semibold">
-//                 ₹899.99
-//               </span>
-
-//             </div>
-
-//             <div className="space-y-2 text-sm border-t pt-3">
-
-//               <div className="flex justify-between">
-//                 <span>Subtotal</span>
-//                 <span>₹1649.98</span>
-//               </div>
-
-//               <div className="flex justify-between">
-//                 <span>Delivery</span>
-//                 <span className="text-green-600">Free</span>
-//               </div>
-
-//               <div className="flex justify-between">
-//                 <span>Installation</span>
-//                 <span>₹49.99</span>
-//               </div>
-
-//               <div className="flex justify-between font-bold text-lg pt-2">
-//                 <span>Total</span>
-//                 <span>₹1849.95</span>
-//               </div>
-
-//             </div>
-
-//             <button className="w-full mt-6 bg-red-600 hover:bg-black text-white py-3 rounded-lg">
-//               Continue to Payment
-//             </button>
-
-//             <p className="text-xs text-gray-500 mt-2 text-center">
-//               Secure checkout with 256-bit SSL encryption
-//             </p>
-
-//           </div>
-
-//         </div>
-
-//       </section>
-//       <Footer/>
-//     </>
-//   );
-// };
-
-// export default Checkout;
-
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -287,8 +8,10 @@ import {
   createInstallation,
   createPayment,
   createRazorpayOrder,
+  getAddresses,
   BASE_URL,
 } from "../context/authApi";
+import TopBar from "../components/TopBar";
 
 const PLACEHOLDER = "https://placehold.co/100x100?text=Battery";
 
@@ -305,7 +28,11 @@ const loadRazorpayScript = () =>
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [popup, setPopup] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
@@ -324,9 +51,12 @@ const Checkout = () => {
   const isExchange = location.state?.isExchange || false;
 
   const timeSlots = {
-    morning: "10AM",
-    afternoon: "2PM",
-    evening: "6PM",
+    morning: "9AM-11AM",
+    midday: "11AM-1PM",
+    afternoon: "1PM-3PM",
+    lateafternoon: "3PM-5PM",
+    evening: "5PM-7PM",
+    night: "7PM-9PM",
     express: "Express",
   };
 
@@ -334,11 +64,29 @@ const Checkout = () => {
     getCartItems()
       .then((data) => setCartItems(data.results || data))
       .catch((err) => console.log(err));
+
     const today = new Date().toISOString().split("T")[0];
     setDeliveryDate(today);
     loadRazorpayScript();
-  }, []);
 
+    // Load default address
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      getAddresses()
+        .then((data) => {
+          const addresses = data.results || data;
+          // Find default address first, fallback to first address
+          const defaultAddr =
+            addresses.find((a) => a.is_default) || addresses[0];
+          if (defaultAddr) {
+            const formatted =
+              `${defaultAddr.address_line1 || ""}${defaultAddr.address_line2 ? ", " + defaultAddr.address_line2 : ""}, ${defaultAddr.city || ""}, ${defaultAddr.state || ""} - ${defaultAddr.pincode || ""}`.trim();
+            setAddress(formatted);
+          }
+        })
+        .catch(() => {});
+    }
+  }, []);
   const subtotal = cartItems.reduce((acc, item) => {
     const price =
       item.product_detail?.price || item.combo_product_detail?.price || 0;
@@ -350,7 +98,11 @@ const Checkout = () => {
   // ── STEP 1: Create orders once, then go to payment step ───────────────────
   const handleContinueToPayment = async () => {
     if (!address.trim()) {
-      alert("Please enter delivery address!");
+      setPopup({
+        show: true,
+        type: "error",
+        message: "Please enter delivery address!",
+      });
       return;
     }
     if (loading) return;
@@ -393,7 +145,11 @@ const Checkout = () => {
           const timeError = errData?.scheduled_time?.[0];
           if (timeError) {
             const proceed = window.confirm(
-              `⚠️ Installation: "${timeError}"\n\nYour order is placed. Continue without installation?`,
+              setPopup({
+                show: true,
+                type: "warning",
+                message: `Installation slot unavailable: "${timeError}". Your order is placed successfully without installation.`,
+              }),
             );
             if (!proceed) {
               setLoading(false);
@@ -406,9 +162,17 @@ const Checkout = () => {
       setStep("payment");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      alert(
-        "Failed to create order: " + (err.message || "Something went wrong"),
-      );
+      let errMsg = "Failed to create order. Please try again.";
+      try {
+        const parsed = JSON.parse(err.message);
+        if (parsed?.error) errMsg = parsed.error;
+        else if (parsed?.detail) errMsg = parsed.detail;
+        else if (parsed?.non_field_errors?.[0])
+          errMsg = parsed.non_field_errors[0];
+      } catch (_) {
+        errMsg = err.message || "Something went wrong.";
+      }
+      setPopup({ show: true, type: "error", message: errMsg });
     } finally {
       setLoading(false);
     }
@@ -418,14 +182,23 @@ const Checkout = () => {
 
   const handlePlaceOrder = async () => {
     if (!paymentMethod) {
-      alert("Please select a payment method!");
+      setPopup({
+        show: true,
+        type: "error",
+        message: "Please select a payment method!",
+      });
+
       return;
     }
     if (loading) return;
 
     const firstOrder = createdOrders[0];
     if (!firstOrder) {
-      alert("Something went wrong. Please go back and try again.");
+      setPopup({
+        show: true,
+        type: "error",
+        message: "Something went wrong. Please go back and try again.",
+      });
       setStep("details");
       setCreatedOrders([]);
       return;
@@ -434,43 +207,44 @@ const Checkout = () => {
     setLoading(true);
     try {
       // ── Reuse existing payment if already created (avoids duplicate error) ──
-    let payment = createdPayment;
-if (!payment) {
-  try {
-    payment = await createPayment({  // ✅ no const — assigns to outer let
-      order: firstOrder.id,
-      amount: total.toFixed(2),
-      method: paymentMethod,
-    });
-    setCreatedPayment(payment);
-  } catch (payErr) {
-    const errMsg = payErr.message || "";
-    if (errMsg.includes("already exists")) {
-      const res = await fetch(
-        `${BASE_URL}/api/payments/?order=${firstOrder.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        },
-      );
-      const data = await res.json();
-      payment = (data.results || data)[0];
-      setCreatedPayment(payment);
-      if (!payment) throw new Error("Could not retrieve existing payment.");
-    } else {
-      throw payErr;
-    }
-  }
-}
+      let payment = createdPayment;
+      if (!payment) {
+        try {
+          payment = await createPayment({
+            // ✅ no const — assigns to outer let
+            order: firstOrder.id,
+            amount: total.toFixed(2),
+            method: paymentMethod,
+          });
+          setCreatedPayment(payment);
+        } catch (payErr) {
+          const errMsg = payErr.message || "";
+          if (errMsg.includes("already exists")) {
+            const res = await fetch(
+              `${BASE_URL}/api/payments/?order=${firstOrder.id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              },
+            );
+            const data = await res.json();
+            payment = (data.results || data)[0];
+            setCreatedPayment(payment);
+            if (!payment)
+              throw new Error("Could not retrieve existing payment.");
+          } else {
+            throw payErr;
+          }
+        }
+      }
 
       // COD → navigate directly
       if (paymentMethod === "COD") {
         // COD
-navigate("/orderconfirm", {
-  state: { order: firstOrder, cartItems, address, payment, total }, // ← add total
-});
-
+        navigate("/orderconfirm", {
+          state: { order: firstOrder, cartItems, address, payment, total }, // ← add total
+        });
 
         return;
       }
@@ -478,9 +252,9 @@ navigate("/orderconfirm", {
       // ONLINE → open Razorpay
       const loaded = await loadRazorpayScript();
       if (!loaded) throw new Error("Razorpay SDK failed to load.");
-const rzpOrderData = await createRazorpayOrder(payment.id);
-console.log("rzpOrderData:", rzpOrderData);
-console.log("amount sent to Razorpay:", rzpOrderData.amount);
+      const rzpOrderData = await createRazorpayOrder(payment.id);
+      console.log("rzpOrderData:", rzpOrderData);
+      console.log("amount sent to Razorpay:", rzpOrderData.amount);
 
       const rzpKey =
         rzpOrderData.razorpay_key_id || rzpOrderData.key_id || rzpOrderData.key;
@@ -494,8 +268,8 @@ console.log("amount sent to Razorpay:", rzpOrderData.amount);
         throw new Error("Razorpay order ID missing from response.");
 
       const options = {
-        key: rzpOrderData.key_id, 
-        amount: rzpOrderData.amount, 
+        key: rzpOrderData.key_id,
+        amount: rzpOrderData.amount,
         currency: rzpOrderData.currency || "INR",
         name: "BatteriesBazaar",
         description: `Order #${firstOrder.id}`,
@@ -511,9 +285,16 @@ console.log("amount sent to Razorpay:", rzpOrderData.amount);
           //   },
           // });
           // ONLINE (in handler)
-navigate("/orderconfirm", {
-  state: { order: firstOrder, cartItems, address, payment, razorpay: response, total }, // ← add total
-});
+          navigate("/orderconfirm", {
+            state: {
+              order: firstOrder,
+              cartItems,
+              address,
+              payment,
+              razorpay: response,
+              total,
+            }, // ← add total
+          });
         },
         prefill: { name: "", email: "", contact: "" },
         theme: { color: "#dc2626" },
@@ -522,7 +303,12 @@ navigate("/orderconfirm", {
 
       const rzp = new window.Razorpay(options);
       rzp.on("payment.failed", (resp) => {
-        alert("Payment failed: " + resp.error.description);
+        setPopup({
+          show: true,
+          type: "error",
+          message: "Payment failed: " + resp.error.description,
+        });
+
         setLoading(false);
       });
       rzp.open();
@@ -536,14 +322,39 @@ navigate("/orderconfirm", {
           errMsg = parsed.non_field_errors[0];
         else errMsg = JSON.stringify(parsed);
       } catch (_) {}
-      alert("Error: " + errMsg);
+      setPopup({ show: true, type: "error", message: errMsg });
       setLoading(false);
     }
   };
 
   return (
     <>
+      <TopBar />
       <Navbar />
+      {popup.show && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center px-4">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl text-center">
+            <div className={`text-5xl mb-4`}>
+              {popup.type === "success"
+                ? "✅"
+                : popup.type === "warning"
+                  ? "⚠️"
+                  : "❌"}
+            </div>
+            <p className="text-gray-800 font-medium text-sm leading-relaxed">
+              {popup.message}
+            </p>
+            <button
+              onClick={() =>
+                setPopup({ show: false, type: "success", message: "" })
+              }
+              className="mt-6 w-full bg-red-600 hover:bg-black text-white py-2 rounded-lg font-semibold transition"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
       <section className="bg-gray-100 py-12 min-h-screen">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Progress Steps */}
@@ -578,16 +389,58 @@ navigate("/orderconfirm", {
               {/* STEP 1 — DELIVERY DETAILS */}
               {step === "details" && (
                 <>
+                  {/* DELIVERY ADDRESS */}
                   <div className="bg-white border rounded-xl p-6">
-                    <h3 className="font-bold text-lg mb-4">Delivery Address</h3>
+                    <h3 className="font-bold text-lg mb-1">Delivery Address</h3>
+                    <p className="text-xs text-gray-500 mb-4">
+                      📍 Enter your full address with <strong>pincode</strong>{" "}
+                      for accurate delivery & installation charges
+                    </p>
+
+                    {/* Default address banner */}
+                    {address && (
+                      <div className="mb-3 flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg px-3 py-2">
+                        <p className="text-xs text-blue-700">
+                          📋 <strong>Default address loaded.</strong> You can
+                          edit below if needed.
+                        </p>
+                        <button
+                          onClick={() => setAddress("")}
+                          className="text-xs text-red-500 hover:text-red-700 underline ml-2 whitespace-nowrap"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                    )}
+
                     <textarea
-                      placeholder="Enter your full delivery address..."
+                      placeholder="Enter your full delivery address with pincode (e.g. 14, MG Road, Bengaluru - 560001)"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       className="w-full border rounded-lg p-4 text-sm h-24 focus:outline-red-500"
                     />
+
+                    {/* Pincode hint */}
+                    <div className="mt-3 flex items-start gap-2 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                      <span className="text-lg">📮</span>
+                      <p className="text-xs text-yellow-800">
+                        <strong>Important:</strong> Please include your{" "}
+                        <strong>6-digit pincode</strong> in the address above.
+                      </p>
+                    </div>
+
+                    {/* Installation distance note */}
+                    <div className="mt-3 flex items-start gap-2 bg-green-50 border border-green-200 rounded-lg p-3">
+                      <span className="text-lg">🔧</span>
+                      <p className="text-xs text-green-800">
+                        <strong>Free Installation</strong> available within{" "}
+                        <strong>5 km</strong> of our service center. Beyond 5
+                        km, vendor will inform charges.
+                      </p>
+                    </div>
                   </div>
 
+                  {/* DELIVERY SCHEDULE */}
                   <div className="bg-white border rounded-xl p-6">
                     <h3 className="font-bold mb-4">Delivery Schedule</h3>
                     <p className="text-sm mb-2">Select Delivery Date</p>
@@ -598,38 +451,54 @@ navigate("/orderconfirm", {
                       className="border rounded-lg px-4 py-2 mb-6 w-full"
                       min={new Date().toISOString().split("T")[0]}
                     />
-                    <p className="text-sm mb-2">Select Time Slot</p>
+                    <p className="text-sm mb-3">Select Time Slot</p>
                     <div className="grid md:grid-cols-2 gap-3">
                       {[
                         {
                           id: "morning",
-                          label: "9:00 AM – 12:00 PM",
-                          price: "Free",
+                          label: "9:00 AM – 11:00 AM",
+                          note: "Most popular",
                         },
+                        { id: "midday", label: "11:00 AM – 1:00 PM", note: "" },
                         {
                           id: "afternoon",
-                          label: "2:00 PM – 6:00 PM",
-                          price: "Free",
+                          label: "1:00 PM – 3:00 PM",
+                          note: "",
+                        },
+                        {
+                          id: "lateafternoon",
+                          label: "3:00 PM – 5:00 PM",
+                          note: "",
                         },
                         {
                           id: "evening",
-                          label: "6:00 PM – 9:00 PM",
-                          price: "₹5.99",
+                          label: "5:00 PM – 7:00 PM",
+                          note: "Evening slot",
                         },
                         {
-                          id: "express",
-                          label: "Express (2 Hours)",
-                          price: "₹15.99",
+                          id: "night",
+                          label: "7:00 PM – 9:00 PM",
+                          note: "Late slot",
                         },
+                        // { id: "express",   label: "Express (2 Hours)",     note: "Fastest" },
                       ].map((slot) => (
                         <button
                           key={slot.id}
                           onClick={() => setSelectedSlot(slot.id)}
-                          className={`border rounded-lg p-3 flex justify-between transition-colors
-                            ${selectedSlot === slot.id ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50"}`}
+                          className={`border rounded-lg p-3 flex justify-between items-center transition-colors
+              ${selectedSlot === slot.id ? "border-red-500 bg-red-50" : "hover:bg-gray-50"}`}
                         >
-                          <span className="text-sm">{slot.label}</span>
-                          <span className="text-sm text-green-600">
+                          <div className="text-left">
+                            <span className="text-sm block">{slot.label}</span>
+                            {slot.note && (
+                              <span className="text-xs text-gray-400">
+                                {slot.note}
+                              </span>
+                            )}
+                          </div>
+                          <span
+                            className={`text-sm font-semibold ${slot.price === "Free" ? "text-green-600" : "text-orange-500"}`}
+                          >
                             {slot.price}
                           </span>
                         </button>
@@ -637,21 +506,27 @@ navigate("/orderconfirm", {
                     </div>
                   </div>
 
+                  {/* INSTALLATION SERVICE */}
                   <div className="bg-white border rounded-xl p-6">
-                    <h3 className="font-bold mb-4">Installation Service</h3>
+                    <h3 className="font-bold mb-1">Installation Service</h3>
+                    <p className="text-xs text-gray-500 mb-4">
+                      🔧 <strong>Free installation</strong> within 5 km of
+                      vendor. Beyond 5 km, the vendor will inform you of charges
+                      based on your location.
+                    </p>
                     <div className="space-y-3">
                       {[
                         {
-                          id: "standard",
-                          title: "Standard Installation",
-                          desc: "Basic setup by certified technician",
-                          price: "₹49.99",
+                          id: "free",
+                          title: "Free Installation (Within 5 km)",
+                          desc: "Our technician will install for free if you're within 5 km of the vendor's location",
+                          price: "Free",
                         },
                         {
-                          id: "premium",
-                          title: "Premium Installation",
-                          desc: "Full setup with testing & warranty",
-                          price: "₹89.99",
+                          id: "standard",
+                          title: "Paid Installation (Beyond 5 km)",
+                          desc: "Charges will be informed by the vendor based on your distance. Our technician will contact you before the visit.",
+                          price: "Charges apply",
                         },
                         {
                           id: "none",
@@ -663,7 +538,7 @@ navigate("/orderconfirm", {
                         <label
                           key={opt.id}
                           className={`border rounded-lg p-4 flex justify-between cursor-pointer transition-colors
-                            ${installation === opt.id ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50"}`}
+      ${installation === opt.id ? "border-red-500 bg-red-50" : "hover:bg-gray-50"}`}
                         >
                           <div className="flex items-start gap-3">
                             <input
@@ -671,7 +546,7 @@ navigate("/orderconfirm", {
                               name="installation"
                               checked={installation === opt.id}
                               onChange={() => setInstallation(opt.id)}
-                              className="mt-1"
+                              className="mt-1 accent-red-600"
                             />
                             <div>
                               <p className="font-medium text-sm">{opt.title}</p>
@@ -680,7 +555,9 @@ navigate("/orderconfirm", {
                               </p>
                             </div>
                           </div>
-                          <span className="text-sm text-green-600 ml-4 whitespace-nowrap">
+                          <span
+                            className={`text-sm font-semibold ml-4 whitespace-nowrap ${opt.price === "Free" ? "text-green-600" : "text-orange-500"}`}
+                          >
                             {opt.price}
                           </span>
                         </label>

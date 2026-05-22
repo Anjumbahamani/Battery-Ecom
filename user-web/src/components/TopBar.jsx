@@ -86,8 +86,8 @@ const TopBar = () => {
         <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 font-medium flex-shrink-0">
           {/* Hide nav links on mobile, show from md up */}
           <a href="/" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Home</a>
-          <a href="/about" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">About</a>
-          <a href="/about" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Service Area</a>
+          <a href="/aboutus" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">About</a>
+          <a href="/aboutus" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Service Area</a>
           <a href="/product" className="hidden md:inline hover:text-yellow-300 transition whitespace-nowrap">Products</a>
 
           <a

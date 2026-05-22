@@ -396,6 +396,7 @@ import {
   getCoupons,
   BASE_URL,
 } from "../context/authApi";
+import TopBar from "../components/TopBar";
 
 const PLACEHOLDER = "https://placehold.co/100x100?text=Battery";
 
@@ -515,6 +516,7 @@ const Cart = () => {
 
   return (
     <>
+    <TopBar/>
       <Navbar />
       <section className="bg-white py-8 sm:py-10 md:py-16">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">

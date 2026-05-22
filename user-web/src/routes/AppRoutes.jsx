@@ -14,6 +14,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsConditions from "../pages/TermConditions";
 import ReturnPolicy from "../pages/ReturnPolicy";
 import AboutUs from "../pages/About";
+import MainAboutUs from "../pages/MainAboutus";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -34,6 +35,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs/>} />
+        <Route path="/aboutus" element={<MainAboutUs />} />
         <Route path="/product" element={<Products />} />
         <Route path="/productdetail/:id" element={<ProductDetail />} />
         <Route path="/productdetail/combo/:id" element={<ProductDetail />} />

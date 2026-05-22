@@ -1,69 +1,160 @@
+// import { useState } from "react";
+// import { MapPin } from "lucide-react";
+// import logo from "../assets/logo.jpeg";
+// import { checkServiceAvailability } from "../context/authApi";
+
+// const CityChecker = () => {
+//   const [city, setCity] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const [result, setResult] = useState(null);
+
+//   const handleCheck = async () => {
+//   if (!city) return alert("Enter city name");
+
+//   setLoading(true);
+
+//   try {
+//     const data = await checkServiceAvailability(city);
+
+//     console.log("Service API response:", data); 
+//    if (data.service_available === true) {
+//   setResult("available");
+// } else {
+//   setResult("not_available");
+// }
+
+//   } catch (err) {
+//     console.error(err);
+//     alert("Error checking service availability");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+//   return (
+//     <section className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-20">
+//       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+//         {/* LEFT SIDE */}
+//         <div className="flex items-center gap-4 text-center md:text-left">
+//           <img
+//             src={logo}
+//             alt="logo"
+//             className="h-24 w-80 rounded-md shadow-md"
+//           />
+//           {/* <div>
+//             <h2 className="text-xl md:text-2xl font-bold">
+//               Check Service Availability
+//             </h2>
+//             <p className="text-red-100 text-sm">
+//               Fast delivery & installation across India
+//             </p>
+//           </div> */}
+//         </div>
+
+//         {/* RIGHT SIDE */}
+//         <div className="flex w-full md:w-auto gap-3">
+//           <div className="">
+//             <div>
+//               <h2 className="text-xl md:text-2xl font-bold">
+//                 Check Service Availability
+//               </h2>
+//               <p className="text-red-100 text-sm">
+//                 Fast delivery & installation across India
+//               </p>
+//             </div>
+//             {/* Input */}
+//             <div className="flex items-center bg-white rounded-lg px-3 py-2 w-full md:w-72 mt-4">
+//               <MapPin className="text-gray-500 mr-2" size={16} />
+//               <input
+//                 type="text"
+//                 placeholder="Enter city"
+//                 value={city}
+//                 onChange={(e) => setCity(e.target.value)}
+//                 className="outline-none w-full text-gray-800 text-sm"
+//               />
+//             </div>
+//             <button
+//               onClick={handleCheck}
+//               disabled={loading}
+//               className="bg-black px-5 py-2 mt-3 rounded-lg text-sm font-semibold hover:bg-red-500 transition"
+//             >
+//               {loading ? "Checking..." : "Check"}
+//             </button>
+//            {result === "available" && (
+//   <p className="text-green-200 mt-2 font-medium">
+//     ✅ Service available in {city}
+//   </p>
+// )}
+
+// {result === "not_available" && (
+//   <p className="text-yellow-200 mt-2 font-medium">
+//     ❌ Not available in {city}
+//   </p>
+// )}
+//           </div>
+
+//           {/* Button */}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default CityChecker;
 import { useState } from "react";
 import { MapPin } from "lucide-react";
 import logo from "../assets/logo.jpeg";
 import { checkServiceAvailability } from "../context/authApi";
+import PopupModal from "./PopupModal";
 
 const CityChecker = () => {
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [popup, setPopup] = useState({ show: false, type: "error", message: "" });
 
   const handleCheck = async () => {
-  if (!city) return alert("Enter city name");
-
-  setLoading(true);
-
-  try {
-    const data = await checkServiceAvailability(city);
-
-    console.log("Service API response:", data); // 🔥 debug
-
-   if (data.service_available === true) {
-  setResult("available");
-} else {
-  setResult("not_available");
-}
-
-  } catch (err) {
-    console.error(err);
-    alert("Error checking service availability");
-  } finally {
-    setLoading(false);
-  }
-};
+    if (!city) {
+      setPopup({ show: true, type: "error", message: "Please enter a city name." });
+      return;
+    }
+    setLoading(true);
+    try {
+      const data = await checkServiceAvailability(city);
+      if (data.service_available === true) {
+        setResult("available");
+      } else {
+        setResult("not_available");
+      }
+    } catch (err) {
+      console.error(err);
+      setPopup({ show: true, type: "error", message: "Error checking service availability." });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-20">
+
+      {popup.show && (
+        <PopupModal
+          type={popup.type}
+          message={popup.message}
+          onClose={() => setPopup({ show: false, type: "error", message: "" })}
+        />
+      )}
+
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        {/* LEFT SIDE */}
         <div className="flex items-center gap-4 text-center md:text-left">
-          <img
-            src={logo}
-            alt="logo"
-            className="h-24 w-80 rounded-md shadow-md"
-          />
-          {/* <div>
-            <h2 className="text-xl md:text-2xl font-bold">
-              Check Service Availability
-            </h2>
-            <p className="text-red-100 text-sm">
-              Fast delivery & installation across India
-            </p>
-          </div> */}
+          <img src={logo} alt="logo" className="h-24 w-80 rounded-md shadow-md" />
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="flex w-full md:w-auto gap-3">
-          <div className="">
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold">
-                Check Service Availability
-              </h2>
-              <p className="text-red-100 text-sm">
-                Fast delivery & installation across India
-              </p>
-            </div>
-            {/* Input */}
+          <div>
+            <h2 className="text-xl md:text-2xl font-bold">Check Service Availability</h2>
+            <p className="text-red-100 text-sm">Fast delivery & installation across India</p>
+
             <div className="flex items-center bg-white rounded-lg px-3 py-2 w-full md:w-72 mt-4">
               <MapPin className="text-gray-500 mr-2" size={16} />
               <input
@@ -74,6 +165,7 @@ const CityChecker = () => {
                 className="outline-none w-full text-gray-800 text-sm"
               />
             </div>
+
             <button
               onClick={handleCheck}
               disabled={loading}
@@ -81,20 +173,14 @@ const CityChecker = () => {
             >
               {loading ? "Checking..." : "Check"}
             </button>
-           {result === "available" && (
-  <p className="text-green-200 mt-2 font-medium">
-    ✅ Service available in {city}
-  </p>
-)}
 
-{result === "not_available" && (
-  <p className="text-yellow-200 mt-2 font-medium">
-    ❌ Not available in {city}
-  </p>
-)}
+            {result === "available" && (
+              <p className="text-green-200 mt-2 font-medium">✅ Service available in {city}</p>
+            )}
+            {result === "not_available" && (
+              <p className="text-yellow-200 mt-2 font-medium">❌ Not available in {city}</p>
+            )}
           </div>
-
-          {/* Button */}
         </div>
       </div>
     </section>
