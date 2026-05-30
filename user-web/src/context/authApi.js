@@ -140,7 +140,12 @@ export const addToCart = async ({ productId, comboId, quantity = 1 }) => {
   if (!response.ok) throw new Error(JSON.stringify(result));
   return result;
 };
-
+// CLEAR ENTIRE CART
+export const clearCart = async () => {
+  const data = await getCartItems();
+  const items = data.results || data;
+  await Promise.all(items.map((item) => deleteCartItem(item.id)));
+};
 
 // GET ALL PRODUCTS
 export const getProducts = async () => {

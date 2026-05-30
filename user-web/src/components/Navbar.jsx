@@ -80,13 +80,26 @@
 // };
 
 // export default Navbar;
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShoppingCart, User, Wrench, PackageCheck, ShieldCheck, Heart, Menu, X } from "lucide-react";
 import logo_battery from "../assets/logo_battery.jpeg";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
+
+useEffect(() => {
+  // Re-check on every navigation (storage changes)
+  const checkAuth = () => {
+    setIsLoggedIn(!!localStorage.getItem("accessToken"));
+  };
+
+  checkAuth(); // run on mount
+  window.addEventListener("storage", checkAuth); // sync across tabs
+
+  return () => window.removeEventListener("storage", checkAuth);
+}, []);
 
   return (
     <div className="bg-white shadow-md sticky top-0 z-50">
@@ -135,14 +148,17 @@ const Navbar = () => {
             <a href="/wishlist">
               <Heart className="cursor-pointer text-gray-700 hover:text-red-500 hover:scale-110 transition" size={20} />
             </a>
-
+   {!isLoggedIn && (
             <a
               href="/login"
               className="bg-red-500 text-white px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-semibold hover:bg-red-600 transition shadow whitespace-nowrap"
             >
+           
+           
+
               Login
             </a>
-
+)}
             {/* Hamburger — visible below md */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}

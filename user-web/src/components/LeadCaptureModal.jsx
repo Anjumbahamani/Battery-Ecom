@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import logo from "../assets/logo.jpeg";
+import logo_battery from "../assets/logo_battery.jpeg";
 import { BASE_URL } from "../context/authApi";
 
 const LeadCaptureModal = ({ onClose }) => {
@@ -39,7 +39,7 @@ const LeadCaptureModal = ({ onClose }) => {
 
         {/* Red header */}
         <div className="bg-red-600 px-6 py-5 text-white text-center relative">
-          <img src={logo} alt="logo" className="h-10 object-contain mx-auto mb-2 brightness-0 invert" />
+          <img src={logo_battery} alt="logo" className="h-14 object-contain mx-auto mb-2" />
           <h2 className="text-xl font-bold">Get Exclusive Battery Deals!</h2>
           <p className="text-red-100 text-sm mt-1">
             Enter your details to unlock best prices & free installation offers

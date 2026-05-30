@@ -694,13 +694,12 @@ const Checkout = () => {
               {cartItems.map((item) => (
                 <div key={item.id} className="flex gap-3 mb-4">
                   <img
-                    src={
-                      item.product_detail?.image
-                        ? `${BASE_URL}${item.product_detail.image}`
-                        : item.combo_product_detail?.image
-                          ? `${BASE_URL}${item.combo_product_detail.image}`
-                          : PLACEHOLDER
-                    }
+                    // ✅ FIXED
+src={
+  item.product_detail?.image ||
+  item.combo_product_detail?.image ||
+  PLACEHOLDER
+}
                     className="w-16 h-16 object-contain border rounded"
                     onError={(e) => (e.target.src = PLACEHOLDER)}
                     alt="product"

@@ -550,11 +550,8 @@ const Cart = () => {
                     className="border rounded-xl p-3 sm:p-5 flex gap-3 sm:gap-5 items-start sm:items-center"
                   >
                     <img
-                      src={
-                        detail?.image
-                          ? `${BASE_URL}${detail.image}`
-                          : PLACEHOLDER
-                      }
+                      
+src={detail?.image || PLACEHOLDER}
                       className="w-16 h-16 sm:w-24 sm:h-24 object-contain flex-shrink-0"
                       onError={(e) => (e.target.src = PLACEHOLDER)}
                     />

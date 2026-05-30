@@ -179,7 +179,7 @@ return;
     try {
       await addToCart({
         productId: isCombo ? null : product.id,
-        comboId: isCombo ? product.id : null, // ✅ comboId not combo_product
+        comboId: isCombo ? product.id : null, 
         quantity: 1,
       });
 setPopup({ show: true, type: "success", message: "Added to cart successfully!", redirect: "/cart" });
