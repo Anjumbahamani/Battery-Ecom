@@ -71,17 +71,13 @@ const Wishlist = () => {
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {wishlist.map(item => (
               <div key={item.id} className="border rounded-xl p-4 hover:shadow-lg transition">
-                <img
-                  src={
-                    item.product_image
-                      ? `${BASE_URL}${item.product_image}`
-                      : PLACEHOLDER
-                  }
-                  alt={item.product_name}
-                  className="h-36 mx-auto object-contain cursor-pointer"
-                  onClick={() => navigate(`/productdetail/${item.product}`)}
-                  onError={(e) => (e.target.src = PLACEHOLDER)}
-                />
+               <img
+  src={item.product_image || PLACEHOLDER}
+  alt={item.product_name}
+  className="h-36 mx-auto object-contain cursor-pointer"
+  onClick={() => navigate(`/productdetail/${item.product}`)}
+  onError={(e) => (e.target.src = PLACEHOLDER)}
+/>
                 <h3
                   className="mt-4 font-semibold cursor-pointer hover:text-red-600"
                   onClick={() => navigate(`/productdetail/${item.product}`)}

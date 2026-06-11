@@ -73,47 +73,59 @@ const OrderConfirmation = () => {
   // }, [order?.id]);
 
 
-  useEffect(() => {
+useEffect(() => {
   if (!order?.id) return;
 
   clearCart().catch((err) => console.log("Cart clear failed:", err));
 
+  const waitForInvoice = async (orderId, token, retries = 5, delay = 2000) => {
+    for (let i = 0; i < retries; i++) {
+      await new Promise((r) => setTimeout(r, delay));
+      const res = await fetch(`${BASE_URL}/api/invoices/?order=${orderId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      const invoices = data.results || data;
+
+      // ⚠️ Check both flat ID and nested object
+      const invoice = invoices.find(
+        (inv) => inv.order === orderId || inv.order?.id === orderId
+      );
+
+      if (invoice) return invoice;
+      console.warn(`Retry ${i + 1}: invoice not ready yet`);
+    }
+    return null;
+  };
+
   const triggerInvoice = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const headers = { Authorization: `Bearer ${token}` };
 
-      // ✅ Wait 2 seconds for backend to generate the invoice
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // ✅ Actually CALL waitForInvoice now
+      const invoice = await waitForInvoice(order.id, token);
 
-      const res = await fetch(`${BASE_URL}/api/invoices/?order=${order.id}`, { headers });
-      if (!res.ok) throw new Error("Failed to fetch invoice");
-
-      const data = await res.json();
-      const invoices = data.results || data;
-      const invoice = invoices[0];
-
-      console.log("Invoices found:", invoices); // ✅ check what comes back
+      console.log("Invoice found:", invoice);
 
       if (!invoice) {
-        console.warn("No invoice found for order", order.id);
+        console.warn("No invoice found after retries for order", order.id);
         setInvoiceStatus("error");
         return;
       }
 
       const pdfRes = await fetch(
         `${BASE_URL}/api/invoices/${invoice.id}/download_pdf/`,
-        { headers }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      console.log("PDF trigger status:", pdfRes.status); // ✅ check response
+      console.log("PDF trigger status:", pdfRes.status);
 
       if (pdfRes.ok) {
         setInvoiceStatus("sent");
       } else {
         const errBody = await pdfRes.json().catch(() => ({}));
-        console.error("PDF trigger failed:", errBody); // ✅ see exact error
-        throw new Error("PDF trigger failed");
+        console.error("PDF trigger failed:", errBody);
+        setInvoiceStatus("error");
       }
 
     } catch (err) {
